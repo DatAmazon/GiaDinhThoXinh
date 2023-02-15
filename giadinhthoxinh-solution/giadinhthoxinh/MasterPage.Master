@@ -1,0 +1,74 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="MasterPage.master.vb" Inherits="giadinhthoxinh.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <style>
+ 
+        </style>
+    </asp:ContentPlaceHolder>
+    <link rel="stylesheet" href="./Assets/css/global.css" />
+    <link rel="stylesheet" href="./Assets/css/master-page.css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <div class="page">
+                <div class="header">
+                    <div class="grid wrapper__header">
+                        <a class="header__logo" href="Index.aspx">
+                            <img class="logo__image" src="./Assets/img/logo.jpg" title="Trang chủ" alt="ảnh avatar" />
+                        </a>
+                        <div class="header__search">
+                            <asp:TextBox runat="server" placeholder="Tìm kiếm..."
+                                ID="tbSearch" CssClass="header__search-box">
+                            </asp:TextBox>
+                            <div>
+                                <asp:DropDownList CssClass="header__search-option" runat="server" ID="drlSearchOption">
+                                    <asp:ListItem id="liUser" Value="0">
+                                Tìm theo tên SP
+                                    </asp:ListItem>
+                                    <asp:ListItem id="liPost" Value="1">
+                                Tìm kiếm theo...
+                                    </asp:ListItem>
+
+                                </asp:DropDownList>
+                                <asp:Button runat="server" ID="btnSearch" CssClass="header__search-button" Text="Tìm" />
+                            </div>
+                        </div>
+                        <asp:Panel ID="pnAccount" runat="server" CssClass="header__account header__account--user">
+                            <a class="header__account-link" href="Login.aspx">Đăng nhập  |  Đăng ký</a>
+                            <%--                           <a href="#" class="header__account-avatar">Cart | </a>
+                            <a href="#" class="header__account-avatar">
+                                Account
+                            </a>--%>
+                            <ul class="header__user-option">
+                                <li class="user__option-item">
+                                    <asp:Button CssClass="option__item-btn" runat="server" ID="btnUpdateProfile" Text="Sửa thông tin tài khoản" />
+                                </li>
+                                <li class="user__option-item">
+                                    <asp:Button CssClass="option__item-btn" runat="server" ID="btnChangePass" Text="Đổi mật khẩu" />
+                                </li>
+                                <li class="user__option-item">
+                                    <asp:Button CssClass="option__item-btn" runat="server" ID="linkProfile" Text="Tới profile" />
+                                </li>
+                                <li class="user__option-item">
+                                    <asp:Button CssClass="option__item-btn" runat="server" ID="btnLogout" Text="Đăng xuất" />
+                                </li>
+                            </ul>
+                        </asp:Panel>
+                    </div>
+                </div>
+                <div class="footer">
+                    <h3 class="footer__credit">Thiết kế và phát triển bởi Gia Đình Thỏ Xinh</h3>
+                </div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

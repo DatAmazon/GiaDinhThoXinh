@@ -1,0 +1,435 @@
+﻿/*Màu chủ đạo: màu chức năng: rgb(230,34,99) - #ff548d; màu nền: rgb(248,248,248) - #f8f8f8, rgb(230,34,99) - #e62263*/
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    /*    --main-color: #ff2a71;
+    --background-color: #ffe5ee;*/
+    --main-color: #219ebc;
+    --background-color: #e1f3f0;
+}
+.page {
+    margin: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--background-color);
+}
+
+.header {
+    width: 100%;
+    height: 50px;
+    margin: auto;
+    background-color: var(--main-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.grid {
+    width: 1200px;
+    max-width: 100%;
+}
+/*------------------------ -----logo---------------------------------------------*/
+.wrapper__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+}
+
+.logo__image {
+    margin: 2.5px;
+    width: 45px;
+    height: 45px;
+    border-radius: 25px;
+}
+/*-------------------------------- TÌM KIẾM ------------------------------*/
+.header__search {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    height: 40px;
+    background-color: white;
+    border-radius: 5px;
+    border: solid 1px gray;
+}
+
+.header__search-box {
+    width: 350px;
+    height: 35px;
+    border: hidden;
+    margin-left: 5px;
+    position: relative;
+    font-size: 12px;
+}
+
+    .header__search-box:focus-visible {
+        outline: none;
+    }
+
+    .header__search-box::after {
+        position: absolute;
+        display: block;
+        content: "hello";
+        height: 45px;
+        border-left: solid 1px gray;
+        z-index: 2;
+    }
+
+.header__search-option {
+    font-size: 12px;
+    border: none;
+    height: 30px;
+    border-left: solid 1px #cccccc;
+}
+
+    .header__search-option:hover {
+        cursor: pointer;
+    }
+
+    .header__search-option:focus-visible {
+        outline: none;
+    }
+
+.header__search-button {
+    width: 36px;
+    height: 36px;
+    margin-right: 3px;
+    border-radius: 3px;
+    border: none;
+}
+
+    .header__search-button:hover {
+        cursor: pointer;
+        background-color: orange;
+        color: white;
+    }
+/*---------------------------------------------Tài khoản-----------------------*/
+.header__account {
+    display: inline-block;
+    font-weight: 500;
+    color: var(--text-color);
+    position: relative;
+}
+
+.header__account--user > .header__account-link {
+    display: block;
+    color: var(--text-color);
+    font-size: 16px;
+}
+
+.header__account--anonymous > .header__account-avatar {
+    display: none;
+}
+
+.header__account--anonymous > .header__user-option {
+    display: none;
+}
+
+.header__account-link {
+    text-decoration: none;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+    .header__account-link:visited {
+        color: var(--white-color);
+    }
+
+    .header__account-link:hover {
+        color: #ffd800;
+    }
+
+.header__account-avatar > img {
+    margin: 2.5px;
+    width: 35px;
+    height: 35px;
+    border-radius: 17.5px;
+}
+
+.header__user-option {
+    background-color: white;
+    list-style: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    height: fit-content;
+    width: 175px;
+    box-shadow: 0 1px 2px #e0e0e0;
+    border-radius: 2px;
+    display: none;
+}
+
+    .header__user-option::before {
+        content: "";
+        position: absolute;
+        right: 12px;
+        top: -6px;
+        border-width: 3px 9px;
+        border-style: solid;
+        border-color: transparent transparent var(--white-color) transparent;
+        z-index: 1;
+    }
+
+.user__option-item {
+    line-height: 35px;
+    height: 35px;
+    overflow: hidden;
+}
+
+    .user__option-item .option__item-btn {
+        padding-left: 10px;
+        color: var(--text-color);
+        text-decoration: none;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        border: none;
+        background-color: var(--white-color);
+        text-align: left;
+    }
+
+        .user__option-item .option__item-btn:hover {
+            background-color: #f7f7f7;
+            cursor: pointer;
+        }
+
+.header__account--user:hover .header__user-option {
+    display: block;
+}
+/*--------------------------------content--------------------------------------------*/
+.content {
+    min-height: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.categories {
+    margin-top: 15px;
+    width: 180px;
+    height: fit-content;
+    background-color: var(--white-color);
+    box-shadow: 0 1px 2px #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.categories__header {
+    padding: 10px 0px 10px 5px;
+    border-bottom: solid 1px #e0e0e0;
+}
+
+.categories__item {
+    display: block;
+    height: 25px;
+}
+
+.categories__item-link {
+    color: var(--text-color);
+    text-decoration: none;
+    line-height: 25px;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding-left: 15px;
+}
+
+    .categories__item-link:hover {
+        color: var(--primary-color);
+        cursor: pointer;
+        background-color: var(--background-color);
+    }
+
+.content__main {
+    width: 1000px;
+    margin-left: 20px;
+    margin-top: 15px;
+    border-radius: 3px;
+}
+
+.content__post-upload {
+    background-color: var(--white-color);
+    width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 3px;
+}
+
+.upload__header {
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 16px;
+    color: var(--main-color);
+    margin-top: 10px;
+}
+
+.upload__body {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.upload__categories {
+    padding-left: 10px;
+}
+
+.upload__input {
+}
+
+.upload__buttons {
+    padding-right: 10px;
+}
+
+.upload__content {
+    display: inline-block;
+    height: 25px;
+    width: 200px;
+    border-color: #ccc;
+}
+
+.content__post-view {
+    margin-top: 15px;
+    background-color: var(--white-color);
+    width: 490px;
+    border-radius: 3px;
+}
+
+.post__view-category {
+    display: block;
+    margin: 5px 5px 5px;
+    padding-top: 10px;
+}
+
+.post__view-category-header {
+    font-size: 26px;
+    text-decoration: none;
+    color: var(--main-color);
+}
+/*--------------------------------------POst--------------------------------------**/
+.post {
+    padding-left: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: solid 1px #e0e0e0;
+    box-shadow: 0px 10px 0px 0px #b3f8f2;
+}
+
+.post__user {
+    display: flex;
+    align-items: center;
+}
+
+.post__user-link {
+    text-decoration: none;
+    display: inline-block;
+    width: fit-content;
+    color: var(--text-color);
+}
+
+    .post__user-link:hover {
+        color: var(--main-color);
+    }
+
+.post__user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin-right: 5px;
+}
+
+.post__user-name {
+    font-size: 18px;
+}
+
+.post__time {
+    font-size: 12px;
+    color: gray;
+    padding-left: 20px;
+}
+
+.post__content {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.post__image {
+    /*max-height:300px;*/
+}
+
+.post__action {
+    display: block;
+    margin-top: 5px;
+    border-top: solid 1px #e0e0e0;
+    padding-top: 5px;
+    height: 25px;
+}
+
+.post__action-btn {
+    border: none;
+    height: 30px;
+    padding: 3px 5px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+    .post__action-btn:hover {
+        cursor: pointer;
+        background-color: #e0e0e0;
+    }
+
+.post__action-option {
+}
+
+.post__action-list {
+    width: fit-content;
+    height: fit-content;
+}
+
+.liked {
+    color: var(--main-color);
+}
+
+/*--------------------------Footer----------------------------------------*/
+.footer {
+    background-color: var(--main-color);
+    height: 50px;
+    display: flex;
+    width: 100%;
+    margin-top: 100px;
+}
+
+.footer__credit {
+    margin: auto;
+    font-weight: 500;
+}
+
+/*#abc {
+    color: yellow;
+}
+*/
+/*#abc1 {
+    color: yellow;
+}*/
