@@ -18,17 +18,20 @@ namespace giadinhthoxinh1
         {
 
             //Lấy tên danh mục ra dropdownlist
-            DataTable productTable = GetProduct();//table lấy sản phẩm
-            rptProduct.DataSource = productTable;
-            rptProduct.DataBind();
-            foreach (DataRow row in productTable.Rows)
+            if (!IsPostBack)
             {
-                drlProduct.Items.Add(new ListItem(row["sProductName"].ToString(), row["PK_iProductID"].ToString()));
-            }
+                DataTable productTable = GetProduct();//table lấy sản phẩm
+                rptProduct.DataSource = productTable;
+                rptProduct.DataBind();
+                foreach (DataRow row in productTable.Rows)
+                {
+                    drlProduct.Items.Add(new ListItem(row["sProductName"].ToString(), row["PK_iProductID"].ToString()));
+                }
 
-            rptProduct.DataSource = productTable;
-            rptProduct.DataBind();
-            ShowList();
+                rptProduct.DataSource = productTable;
+                rptProduct.DataBind();
+                ShowList();
+            }
         }
 
         private DataTable GetProduct()//table lấy sản phẩm
@@ -117,16 +120,55 @@ namespace giadinhthoxinh1
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label imageID = (Label)dgv.SelectedRow.FindControl("imageID");
-            Label category = (Label)dgv.SelectedRow.FindControl("sProductName");
-            //Label img = (Label)dgv.SelectedRow.FindControl("sImage");
-            Label state = (Label)dgv.SelectedRow.FindControl("imageState");
+            if (dgv.SelectedDataKey != null)
+            {
+                //Label imageID = (Label)dgv.SelectedRow.FindControl("imageID");
+                //Label category = (Label)dgv.SelectedRow.FindControl("sProductName");
+                //Label state = (Label)dgv.SelectedRow.FindControl("imageState");
 
-            txtImageID.Text = imageID.Text.ToString();
-            //drlProduct.SelectedValue = category.Text.ToString();
-            txtState.Text = state.Text.ToString();
-            //txtCategoryName.Text = cateName.Text.ToString();
+                //txtImageID.Text = imageID.Text.ToString();
+                //txtState.Text = state.Text.ToString();
+
+                using (SqlConnection cnn = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = cnn.CreateCommand())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "pro_Image";
+                        cmd.Parameters.AddWithValue("@PK_iImageID", dgv.SelectedValue.ToString());
+                        cnn.Open();
+                        SqlDataReader data = cmd.ExecuteReader();
+                        if (data.HasRows)
+                        {
+                            data.Read();
+                            txtImageID.Text = data["PK_iImageID"].ToString();
+                            txtState.Text = data["iState"].ToString();
+                            string id_sanpham = data["FK_iProductID"].ToString();
+                            foreach (ListItem item in drlProduct.Items)
+                            {
+                                if (item.Value.Equals(id_sanpham))
+                                {
+                                    drlProduct.ClearSelection();
+                                    item.Selected = true;
+                                    break;
+                                }
+                            }
+                            imageShow.ImageUrl = data["sImage"].ToString();
+                        }
+
+                        cnn.Close();
+
+                    }
+                }
+            }
+
+
         }
+
+
+
+
+
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {

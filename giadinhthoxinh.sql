@@ -161,6 +161,7 @@ begin
 	insert into tblImage values(@FK_iImageID, @url, @state)
 end
 exec proAddImage 1, 'dfsfsd', 1
+
 go
 create proc pro_getProduct 
 as
@@ -171,3 +172,12 @@ end
 drop proc sp_getProduct
 
 select * from tblImage
+
+go
+create proc pro_Image
+@PK_iImageID int
+as
+begin
+	select * from tblImage
+	where PK_iImageID = @PK_iImageID
+end
