@@ -66,7 +66,7 @@ create table tblUser(
 	sEmail varchar(50),
 	sPass nvarchar(50),
 	sUserName nvarchar(50),
-	sPhone nvarchar(12),
+	sPhone varchar(12),
 	sAddress nvarchar(200),
 	iState int,
 	constraint fk_user_permission foreign key(FK_iPermissionID) references tblPermission (PK_iPermissionID)
@@ -277,4 +277,55 @@ begin
 	delete from tblSupplier 
 	where PK_iSupplierID = @PK_iSupplierID
 end
+
+--5.User
+--insert
+go
+create proc proAddUser
+@FK_iPermissionID int,
+@sEmail varchar(50),
+@sPass nvarchar(50),
+@sUserName nvarchar(50),
+@sPhone varchar(12),
+@sAddress nvarchar(200),
+@iState int
+as
+begin
+	insert into tblUser values(@FK_iPermissionID, @sEmail, @sPass, @sUserName, @sPhone, @sAddress, @iState)
+end
+
+--update
+go
+create proc proUpdateUser
+@PK_iAccountID int,
+@FK_iPermissionID int,
+@sEmail varchar(50),
+@sPass nvarchar(50),
+@sUserName nvarchar(50),
+@sPhone varchar(12),
+@sAddress nvarchar(200),
+@iState int
+as
+begin
+	Update tblUser 
+	set FK_iPermissionID = @FK_iPermissionID,
+	sEmail = @sEmail,
+	sPass = @sPass,
+	sUserName = @sUserName,
+	sPhone = @sPhone,
+	sAddress = @sAddress,
+	iState = @iState
+	where PK_iAccountID = @PK_iAccountID
+end
+
+--delete
+go
+create proc proDeleteUser
+@PK_iAccountID int
+as
+begin
+	delete from tblUser 
+	where PK_iAccountID = @PK_iAccountID
+end
+
 
