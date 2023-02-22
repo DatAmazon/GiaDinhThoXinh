@@ -327,5 +327,6 @@ begin
 	delete from tblUser 
 	where PK_iAccountID = @PK_iAccountID
 end
-
+--6. CheckoutDetail
+select * from tblCheckoutDetail
 

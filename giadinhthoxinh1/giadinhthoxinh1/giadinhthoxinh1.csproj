@@ -113,6 +113,7 @@
     <Content Include="Assets\img\dotNet.png" />
     <Content Include="Assets\img\logo.jpg" />
     <Content Include="Assets\img\logo1.jpg" />
+    <Content Include="CheckoutDetail.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -184,6 +185,13 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CheckoutDetail.aspx.cs">
+      <DependentUpon>CheckoutDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CheckoutDetail.aspx.designer.cs">
+      <DependentUpon>CheckoutDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
