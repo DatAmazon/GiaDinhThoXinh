@@ -1,17 +1,15 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Image1.aspx.cs" Inherits="giadinhthoxinh1.Image" EnableEventValidation="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Permission.aspx.cs" Inherits="giadinhthoxinh1.Permission" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="./Assets/css/component.css" />
-    <style>
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<%--    <asp:ScriptManager ID="ScriptManager1"
+    <asp:ScriptManager ID="ScriptManager1"
         runat="server">
     </asp:ScriptManager>
 
     <asp:UpdatePanel ID="UpdatePanel2" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional">
-        <ContentTemplate>--%>
+        <ContentTemplate>
 
             <div class="wrap">
                 <div class="show-list">
@@ -20,18 +18,18 @@
                         <Columns>
                             <asp:TemplateField HeaderText="ID">
                                 <ItemTemplate>
-                                    <asp:Label ID="categoryID" runat="server" Text='<%# Eval("PK_iCategoryID") %>'></asp:Label>
+                                    <asp:Label ID="permissionID" runat="server" Text='<%# Eval("PK_iPermissionID") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Tên">
+                            <asp:TemplateField HeaderText="Tên danh mục">
                                 <ItemTemplate>
-                                    <asp:Label ID="categoryName" runat="server" Text='<%# Eval("sCategoryName") %>'></asp:Label>
+                                    <asp:Label ID="permissionName" runat="server" Text='<%# Eval("sPermissionName") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Trạng thái">
                                 <ItemTemplate>
-                                    <asp:Label ID="categoryState" runat="server" Text='<%# Eval("sCategoryName") %>'></asp:Label>
+                                    <asp:Label ID="permissionState" runat="server" Text='<%# Eval("iState") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -41,13 +39,13 @@
                 <div class="func">
                     <div class="form-func">
                         <p>
-                            <span class="label">Mã:</span>
-                            <asp:TextBox ID="txtCategoryID" runat="server" Enabled="false" Width="184px"></asp:TextBox>
+                            <span class="label">Mã quyền:</span>
+                            <asp:TextBox ID="txtPermissionID" runat="server" Enabled="false" Width="184px"></asp:TextBox>
                         </p>
                         <p>
-                            <span class="label">Tên:</span>
-                            <asp:TextBox ID="txtCategoryName" runat="server" Width="184px"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rName" runat="server" ControlToValidate="txtCategoryName" ErrorMessage="Tên danh mục không được bỏ trống"
+                            <span class="label">Tên quyền:</span>
+                            <asp:TextBox ID="txtPermissionName" runat="server" Width="184px"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rName" runat="server" ControlToValidate="txtPermissionName" ErrorMessage="Tên quyền không được bỏ trống"
                                 ForeColor="Red" Display="None" ValidationGroup="checkGroup"></asp:RequiredFieldValidator>
                         </p>
                         <p>
@@ -58,6 +56,8 @@
                             <asp:RegularExpressionValidator ID="revState" runat="server" ValidationExpression="^[0-9]+$" Display="None"
                                 ControlToValidate="txtState" ErrorMessage="Trạng thái chỉ được là 0 hoặc 1" ForeColor="Red" ValidationGroup="checkGroup"></asp:RegularExpressionValidator>
                         </p>
+
+
                         <p class="lblNotify">
                             <asp:Label ID="lblNotify" runat="server" Text="" ForeColor="blue"></asp:Label>
                         </p>
@@ -73,10 +73,9 @@
                             <asp:Button ID="btnReset" class="btn" runat="server" Text="Reset" OnClick="btnReset_Click" />
                         </div>
                     </div>
-
                 </div>
             </div>
 
-<%--        </ContentTemplate>
-    </asp:UpdatePanel>--%>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 </asp:Content>

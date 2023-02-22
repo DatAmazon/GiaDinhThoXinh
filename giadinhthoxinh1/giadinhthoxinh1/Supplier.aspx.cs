@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace giadinhthoxinh1
 {
-    public partial class Image : System.Web.UI.Page
+    public partial class Supplier : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
@@ -20,15 +20,18 @@ namespace giadinhthoxinh1
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            
+
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = cnn.CreateCommand())
                 {
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proAddCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
+                    cmd.CommandText = "proAddSupplier";
+                    cmd.Parameters.AddWithValue("@sSupplierName", txtSupplierName.Text);
+                    cmd.Parameters.AddWithValue("@sPhone", txtSupplierPhone.Text);
+                    cmd.Parameters.AddWithValue("@sEmail", txtSupplierEmail.Text);
+                    cmd.Parameters.AddWithValue("@sAddress", txtSupplierAddress.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -52,7 +55,7 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection Cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand Cmd = new SqlCommand("select * from tblCategory", Cnn))
+                using (SqlCommand Cmd = new SqlCommand("select * from tblSupplier", Cnn))
                 {
                     Cmd.CommandType = CommandType.Text;
                     Cnn.Open();
@@ -81,13 +84,17 @@ namespace giadinhthoxinh1
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label cateID = (Label)dgv.SelectedRow.FindControl("categoryID");
-            Label cateName = (Label)dgv.SelectedRow.FindControl("categoryName");
-            Label categoryState = (Label)dgv.SelectedRow.FindControl("categoryName");
+            Label supplierID = (Label)dgv.SelectedRow.FindControl("supplierID");
+            Label supplierName = (Label)dgv.SelectedRow.FindControl("supplierName");
+            Label supplierPhone = (Label)dgv.SelectedRow.FindControl("supplierPhone");
+            Label supplierEmail = (Label)dgv.SelectedRow.FindControl("supplierEmail");
+            Label supplierAddress = (Label)dgv.SelectedRow.FindControl("supplierAddress");
 
-            txtCategoryID.Text = cateID.Text.ToString();
-            txtCategoryName.Text = cateName.Text.ToString();
-            txtState.Text = categoryState.Text.ToString();
+            txtSupplierID.Text = supplierID.Text.ToString();
+            txtSupplierName.Text = supplierName.Text.ToString();
+            txtSupplierPhone.Text = supplierPhone.Text.ToString();
+            txtSupplierEmail.Text = supplierEmail.Text.ToString();
+            txtSupplierAddress.Text = supplierAddress.Text.ToString();
 
         }
 
@@ -98,11 +105,12 @@ namespace giadinhthoxinh1
                 using (SqlCommand cmd = cnn.CreateCommand())
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proUpdateCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
-                    cmd.Parameters.AddWithValue("@iState", txtState.Text);
-
+                    cmd.CommandText = "proUpdateSupplier";
+                    cmd.Parameters.AddWithValue("@PK_iSupplierID", txtSupplierID.Text);
+                    cmd.Parameters.AddWithValue("@sSupplierName", txtSupplierName.Text);
+                    cmd.Parameters.AddWithValue("@sPhone", txtSupplierPhone.Text);
+                    cmd.Parameters.AddWithValue("@sEmail", txtSupplierEmail.Text);
+                    cmd.Parameters.AddWithValue("@sAddress", txtSupplierAddress.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -129,8 +137,8 @@ namespace giadinhthoxinh1
                 using (SqlCommand cmd = cnn.CreateCommand())
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proDeleteCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
+                    cmd.CommandText = "proDeleteSupplier";
+                    cmd.Parameters.AddWithValue("@PK_iSupplierID", txtSupplierID.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -157,9 +165,15 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtCategoryID.Text = txtCategoryName.Text = "";
+            txtSupplierID.Text = txtSupplierName.Text = txtSupplierPhone.Text = txtSupplierEmail.Text = txtSupplierAddress.Text = "";
 
         }
-
     }
 }
+
+//cmd.CommandText = "proUpdateSupplier";
+//cmd.Parameters.AddWithValue("@PK_iSupplierID", txt.Text);
+//cmd.Parameters.AddWithValue("@sSupplierName", txtCategoryName.Text);
+//cmd.Parameters.AddWithValue("@sPhone", txtState.Text);
+//cmd.Parameters.AddWithValue("@sEmail", txtState.Text);
+//cmd.Parameters.AddWithValue("@sAddress", txtState.Text);

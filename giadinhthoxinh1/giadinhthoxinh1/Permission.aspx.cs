@@ -10,26 +10,29 @@ using System.Web.UI.WebControls;
 
 namespace giadinhthoxinh1
 {
-    public partial class Image : System.Web.UI.Page
+    public partial class Permission : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-            ShowList();
+      
+                ShowList();
+            
+
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            
+
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = cnn.CreateCommand())
                 {
 
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proAddCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
-
+                    cmd.CommandText = "proAddPermission";
+                    cmd.Parameters.AddWithValue("@sPermissionName", txtPermissionName.Text);
+                    cmd.Parameters.AddWithValue("@iState", txtState.Text);
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i == 0)
@@ -52,7 +55,7 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection Cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand Cmd = new SqlCommand("select * from tblCategory", Cnn))
+                using (SqlCommand Cmd = new SqlCommand("select * from tblPermission", Cnn))
                 {
                     Cmd.CommandType = CommandType.Text;
                     Cnn.Open();
@@ -81,13 +84,13 @@ namespace giadinhthoxinh1
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label cateID = (Label)dgv.SelectedRow.FindControl("categoryID");
-            Label cateName = (Label)dgv.SelectedRow.FindControl("categoryName");
-            Label categoryState = (Label)dgv.SelectedRow.FindControl("categoryName");
+            Label permissionID = (Label)dgv.SelectedRow.FindControl("permissionID");
+            Label permissionName = (Label)dgv.SelectedRow.FindControl("permissionName");
+            Label permissionState = (Label)dgv.SelectedRow.FindControl("permissionState");
 
-            txtCategoryID.Text = cateID.Text.ToString();
-            txtCategoryName.Text = cateName.Text.ToString();
-            txtState.Text = categoryState.Text.ToString();
+            txtPermissionID.Text = permissionID.Text.ToString();
+            txtPermissionName.Text = permissionName.Text.ToString();
+            txtState.Text = permissionState.Text.ToString();
 
         }
 
@@ -98,11 +101,10 @@ namespace giadinhthoxinh1
                 using (SqlCommand cmd = cnn.CreateCommand())
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proUpdateCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
+                    cmd.CommandText = "proUpdatePermission";
+                    cmd.Parameters.AddWithValue("@PK_iPermissionID", txtPermissionID.Text);
+                    cmd.Parameters.AddWithValue("@sPermissionName", txtPermissionName.Text);
                     cmd.Parameters.AddWithValue("@iState", txtState.Text);
-
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -129,8 +131,8 @@ namespace giadinhthoxinh1
                 using (SqlCommand cmd = cnn.CreateCommand())
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proDeleteCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
+                    cmd.CommandText = "proDeletePermission";
+                    cmd.Parameters.AddWithValue("@PK_iPermissionID", txtPermissionID.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -157,9 +159,7 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtCategoryID.Text = txtCategoryName.Text = "";
-
+            txtPermissionName.Text = txtState.Text = txtPermissionID.Text = "";
         }
-
     }
 }

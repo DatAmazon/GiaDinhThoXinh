@@ -165,69 +165,31 @@ namespace giadinhthoxinh1
 
         }
 
-
-
-
-
-
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            //using (SqlConnection cnn = new SqlConnection(connectionString))
-            //{
-            //    using (SqlCommand cmd = cnn.CreateCommand())
-            //    {
-            //        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            //        cmd.CommandText = "proUpdateCategory";
-            //        cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
-
-            //        cnn.Open();
-            //        int i = cmd.ExecuteNonQuery();
-            //        if (i == 0)
-            //        {
-            //            lblNotify.Text = "Sửa thất bại";
-            //            lblNotify.ForeColor = System.Drawing.Color.Red;
-            //        }
-            //        else
-            //        {
-            //            lblNotify.Text = "Sửa thành công";
-            //        }
-            //        cnn.Close();
-            //    }
-            //}
-            //ShowList();
-            //Reset();
+            string fileName = "";
+            if (uploadImage.HasFile)
+            {
+                if (checkFileType(uploadImage.FileName))
+                {
+                    fileName = "./Assets/img/post" + DateTime.Now.ToString("ddMMyyyy_hhmmss_tt_") + uploadImage.FileName;
+                    String filePath = MapPath(fileName);
+                    uploadImage.SaveAs(filePath);
+                }
+            };
+            if (UpdateImage(fileName) != 0)
+            {
+                //Response.Write("<script>alert('Đăng bài viết thành công! nội dung trang web sẽ sớm được cập nhật!');</script>");
+                //updateContent();
+            }
+            else
+            {
+                Response.Write("<script>alert('Thêm bài viết thất bại! hãy thử lại sau')</script>");
+            }
+            ShowList();
         }
 
-        protected void btnDel_Click(object sender, EventArgs e)
-        {
-            //using (SqlConnection cnn = new SqlConnection(connectionString))
-            //{
-            //    using (SqlCommand cmd = cnn.CreateCommand())
-            //    {
-            //        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            //        cmd.CommandText = "proDeleteCategory";
-            //        cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
-
-            //        cnn.Open();
-            //        int i = cmd.ExecuteNonQuery();
-            //        if (i == 0)
-            //        {
-            //            lblNotify.Text = "Xóa thất bại";
-            //            lblNotify.ForeColor = System.Drawing.Color.Red;
-            //        }
-            //        else
-            //        {
-            //            lblNotify.Text = "Xóa thành công";
-            //        }
-            //        cnn.Close();
-
-            //    }
-            //}
-            //ShowList();
-            //Reset();
-            //ShowList();
-        }
-        private int InsertImage(string fileName)//hàm thêm 
+        protected int InsertImage(string fileName)//hàm thêm 
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
@@ -254,40 +216,71 @@ namespace giadinhthoxinh1
                     return i;
                 }
             }
-
-            //using (SqlConnection cnn = new SqlConnection(connectionString))
-            //{
-            //    using (SqlCommand cmd = cnn.CreateCommand()) @sCategoryName
-            //    {
-
-            //        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            //        cmd.CommandText = "proAddImage";
-            //        cmd.Parameters.AddWithValue("@FK_iImageID", drlProduct.SelectedValue);
-            //        cmd.Parameters.AddWithValue("@url", fileName);
-            //        cmd.Parameters.AddWithValue("@state", txtCategoryID.Text);
-
-            //        cnn.Open();
-            //        int i = cmd.ExecuteNonQuery();
-            //        if (i == 0)
-            //        {
-            //            lblNotify.Text = "Thêm thất bại";
-            //            lblNotify.ForeColor = System.Drawing.Color.Red;
-            //        }
-            //        else
-            //        {
-            //            lblNotify.Text = "Thêm thành công";
-            //        }
-            //        cnn.Close();
-            //    }
-            //}
-            //ShowList();
-            //Reset();
         }
+
+        protected int UpdateImage(string fileName)
+        {
+            using (SqlConnection cnn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "proUpdateImage";
+                    cmd.Parameters.AddWithValue("@PK_iImageID", txtImageID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iProductID", drlProduct.SelectedValue);
+                    cmd.Parameters.AddWithValue("@urlImage", fileName);
+                    cmd.Parameters.AddWithValue("@state", txtState.Text);
+                    cnn.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    if (i == 0)
+                    {
+                        lblNotify.Text = "Sửa thất bại";
+                        lblNotify.ForeColor = System.Drawing.Color.Red;
+                    }
+                    else
+                    {
+                        lblNotify.Text = "Sửa thành công";
+                    }
+                    cnn.Close();
+                    cnn.Close();
+                    Reset();
+                    return i;
+                }
+            }
+
+        }
+
+
         protected void btnUpload_Click(object sender, EventArgs e)// đã cho câu lệnh vào hàm add
         {
 
         }
-
+        protected void btnDel_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection cnn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandText = "proDeleteImage";
+                    cmd.Parameters.AddWithValue("@PK_iImageID", txtImageID.Text);
+                    cnn.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    if (i == 0)
+                    {
+                        lblNotify.Text = "Xóa thất bại";
+                        lblNotify.ForeColor = System.Drawing.Color.Red;
+                    }
+                    else
+                    {
+                        lblNotify.Text = "Xóa thành công";
+                    }
+                    cnn.Close();
+                }
+            }
+            Reset();
+            ShowList();
+        }
 
         protected void btnReset_Click(object sender, EventArgs e)
         {

@@ -160,7 +160,6 @@ as
 begin
 	insert into tblImage values(@FK_iImageID, @url, @state)
 end
-exec proAddImage 1, 'dfsfsd', 1
 
 go
 create proc pro_getProduct 
@@ -169,15 +168,113 @@ begin
 	select * from tblProduct
 end
 
-drop proc sp_getProduct
-
-select * from tblImage
-
 go
-create proc pro_Image
+create proc pro_Image--select image for ID
 @PK_iImageID int
 as
 begin
 	select * from tblImage
 	where PK_iImageID = @PK_iImageID
 end
+
+go
+create proc proUpdateImage
+@PK_iImageID int,
+@FK_iProductID int,
+@urlImage nvarchar(80),
+@state int
+as
+begin
+	update tblImage
+	set 
+	FK_iProductID = @FK_iProductID,
+	sImage = @urlImage,
+	iState = @state
+	where PK_iImageID = @PK_iImageID
+end
+
+go
+create proc proDeleteImage
+@PK_iImageID int
+as
+begin
+	delete from tblImage 
+	where PK_iImageID = @PK_iImageID
+end
+
+--3. Permission
+--insert
+go
+create proc proAddPermission
+@sPermissionName nvarchar(50),
+@iState int
+as
+begin
+	insert into tblPermission values(@sPermissionName, @iState)
+end
+
+--update
+go
+create proc proUpdatePermission
+@PK_iPermissionID int,
+@sPermissionName nvarchar(50),
+@iState int
+as
+begin
+	Update tblPermission 
+	set sPermissionName = @sPermissionName,
+	iState = @iState
+	where PK_iPermissionID = @PK_iPermissionID
+end
+
+--delete
+go
+create proc proDeletePermission
+@PK_iPermissionID int
+as
+begin
+	delete from tblPermission 
+	where @PK_iPermissionID = PK_iPermissionID
+end
+
+--4. Supplier
+--insert
+go
+create proc proAddSupplier
+@sSupplierName nvarchar(50),
+@sPhone varchar(12),
+@sEmail varchar(50),
+@sAddress nvarchar(250)
+as
+begin
+	insert into tblSupplier values(@sSupplierName, @sPhone, @sEmail, @sAddress)
+end
+
+--update
+go
+create proc proUpdateSupplier
+@PK_iSupplierID int,
+@sSupplierName nvarchar(50),
+@sPhone varchar(12),
+@sEmail varchar(50),
+@sAddress nvarchar(250)
+as
+begin
+	Update tblSupplier 
+	set sSupplierName = @sSupplierName,
+	sPhone = @sPhone,
+	sEmail = @sEmail,
+	sAddress = @sAddress
+	where PK_iSupplierID = @PK_iSupplierID
+end
+
+--delete
+go
+create proc proDeleteSupplier
+@PK_iSupplierID int
+as
+begin
+	delete from tblSupplier 
+	where PK_iSupplierID = @PK_iSupplierID
+end
+

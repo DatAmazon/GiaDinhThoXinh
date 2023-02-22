@@ -1,8 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Image.aspx.cs" Inherits="giadinhthoxinh1.Image1" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" href="./Assets/css/component.css" />
+
     <style>
-        .wrap {
+        /*.wrap {
             display: flex;
             width: 100%;
             height: 600px;
@@ -35,9 +37,9 @@
             margin: 20px auto;
         }
 
-        .form-btn {
+        .form-btn {*/
             /*width: 80%;*/
-            display: flex;
+            /*display: flex;
             justify-content: space-evenly;
             margin: auto;
         }
@@ -69,7 +71,7 @@
             width: 100px;
             height: 100px;
             object-fit: cover;
-        }
+        }*/
     </style>
     <script type="text/javascript">
         function ShowPreview(input) {
