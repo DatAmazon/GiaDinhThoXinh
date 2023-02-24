@@ -7,10 +7,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 namespace giadinhthoxinh1
 {
-    public partial class Image : System.Web.UI.Page
+    public partial class Promote : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
@@ -23,11 +22,15 @@ namespace giadinhthoxinh1
 
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("proAddCategory", cnn))
+                using (SqlCommand cmd = new SqlCommand("proAddPromote", cnn))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
+                    cmd.Parameters.AddWithValue("@sPromoteName", txtpromoteID.Text);
+                    cmd.Parameters.AddWithValue("@sPromoteRate", txtPromoteRate.Text);
+                    cmd.Parameters.AddWithValue("@dtStartDay", txtStartDay.Text);
+                    cmd.Parameters.AddWithValue("@dtEndDay", txtEndDay.Text);
+
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -51,7 +54,7 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection Cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand Cmd = new SqlCommand("select * from tblCategory", Cnn))
+                using (SqlCommand Cmd = new SqlCommand("select * from tblPromote", Cnn))
                 {
                     Cmd.CommandType = CommandType.Text;
                     Cnn.Open();
@@ -80,27 +83,32 @@ namespace giadinhthoxinh1
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label cateID = (Label)dgv.SelectedRow.FindControl("categoryID");
-            Label cateName = (Label)dgv.SelectedRow.FindControl("categoryName");
-            Label categoryState = (Label)dgv.SelectedRow.FindControl("categoryName");
+            Label promoteID = (Label)dgv.SelectedRow.FindControl("promoteID");
+            Label promoteName = (Label)dgv.SelectedRow.FindControl("promoteName");
+            Label promoteRate = (Label)dgv.SelectedRow.FindControl("promoteRate");
+            Label dtStartDay = (Label)dgv.SelectedRow.FindControl("dtStartDay");
+            Label dtEndDay = (Label)dgv.SelectedRow.FindControl("dtEndDay");
 
-            txtCategoryID.Text = cateID.Text.ToString();
-            txtCategoryName.Text = cateName.Text.ToString();
-            txtState.Text = categoryState.Text.ToString();
-
+            txtpromoteID.Text = promoteID.Text.ToString();
+            txtPromoteName.Text = promoteName.Text.ToString();
+            txtPromoteRate.Text = promoteRate.Text.ToString();
+            txtStartDay.Text = dtStartDay.Text.ToString();
+            txtEndDay.Text = dtEndDay.Text.ToString();
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("proUpdateCategory", cnn))
+                using (SqlCommand cmd = new SqlCommand("proUpdatePromote", cnn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
-                    cmd.Parameters.AddWithValue("@iState", txtState.Text);
-
+                    cmd.Parameters.AddWithValue("@PK_iPromoteID", txtpromoteID.Text);
+                    cmd.Parameters.AddWithValue("@sPromoteName", txtpromoteID.Text);
+                    cmd.Parameters.AddWithValue("@sPromoteRate", txtPromoteRate.Text);
+                    cmd.Parameters.AddWithValue("@dtStartDay", DateTime.Parse(txtStartDay.Text));
+                    cmd.Parameters.AddWithValue("@dtEndDay", DateTime.Parse(txtEndDay.Text));
+                    
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -124,10 +132,10 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("proDeleteCategory", cnn))
+                using (SqlCommand cmd = new SqlCommand("proDeletePromote", cnn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
+                    cmd.Parameters.AddWithValue("@PK_iPromoteID", txtpromoteID.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -154,7 +162,8 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtCategoryID.Text = txtCategoryName.Text = "";
+            txtpromoteID.Text = txtPromoteName.Text = txtPromoteRate.Text = txtStartDay.Text = txtEndDay.Text = "";
+
         }
 
     }

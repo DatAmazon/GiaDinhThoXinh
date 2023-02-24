@@ -11,7 +11,7 @@ namespace giadinhthoxinh1
 {
 
 
-    public partial class CheckoutDetail
+    public partial class CheckinDetail
     {
 
         /// <summary>
@@ -24,22 +24,22 @@ namespace giadinhthoxinh1
         protected global::System.Web.UI.WebControls.GridView dgv;
 
         /// <summary>
-        /// txtCheckoutDetailID control.
+        /// txtCheckinDetailID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCheckoutDetailID;
+        protected global::System.Web.UI.WebControls.TextBox txtCheckinDetailID;
 
         /// <summary>
-        /// txtFKOrderID control.
+        /// txtFKImportOrderID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFKOrderID;
+        protected global::System.Web.UI.WebControls.TextBox txtFKImportOrderID;
 
         /// <summary>
         /// rName control.
@@ -69,13 +69,13 @@ namespace giadinhthoxinh1
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reState;
 
         /// <summary>
-        /// txtQuantity control.
+        /// txtQuatity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtQuantity;
+        protected global::System.Web.UI.WebControls.TextBox txtQuatity;
 
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -85,6 +85,24 @@ namespace giadinhthoxinh1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+
+        /// <summary>
+        /// txtPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrice;
+
+        /// <summary>
+        /// RequiredFieldValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
 
         /// <summary>
         /// txtTotalMoney control.

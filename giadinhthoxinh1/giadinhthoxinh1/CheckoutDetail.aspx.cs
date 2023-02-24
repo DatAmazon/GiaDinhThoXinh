@@ -23,12 +23,13 @@ namespace giadinhthoxinh1
 
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = cnn.CreateCommand())
+                using (SqlCommand cmd = new SqlCommand("proAddCheckoutDetail", cnn))
                 {
-
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proAddCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtOrderID.Text);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@FK_iOrderID", txtFKOrderID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iProductID", txtFKProductID.Text);
+                    cmd.Parameters.AddWithValue("@iQuantity", txtQuantity.Text);
+                    cmd.Parameters.AddWithValue("@iTotalMoney", txtQuantity.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -88,8 +89,8 @@ namespace giadinhthoxinh1
             Label totalMoney = (Label)dgv.SelectedRow.FindControl("totalMoney");
 
             txtCheckoutDetailID.Text = checkoutDetailID.Text.ToString();
-            txtOrderID.Text = orderID.Text.ToString();
-            txtProductID.Text = productID.Text.ToString();
+            txtFKOrderID.Text = orderID.Text.ToString();
+            txtFKProductID.Text = productID.Text.ToString();
             txtQuantity.Text = quantity.Text.ToString();
             txtTotalMoney.Text = totalMoney.Text.ToString();
 
@@ -99,14 +100,14 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = cnn.CreateCommand())
+                using (SqlCommand cmd = new SqlCommand("proUpdateCheckoutDetail", cnn))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proUpdateCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCheckoutDetailID.Text);
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCheckoutDetailID.Text);
-                    cmd.Parameters.AddWithValue("@iState", txtCheckoutDetailID.Text);
-
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PK_iCheckoutDetailID", txtCheckoutDetailID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iOrderID", txtFKOrderID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iProductID", txtFKProductID.Text);
+                    cmd.Parameters.AddWithValue("@iQuantity", txtQuantity.Text);
+                    cmd.Parameters.AddWithValue("@iTotalMoney", txtTotalMoney.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -130,12 +131,10 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = cnn.CreateCommand())
+                using (SqlCommand cmd = new SqlCommand("proDeleteCheckoutDetail", cnn))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proDeleteCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCheckoutDetailID.Text);
-
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PK_iCheckoutDetailID", txtCheckoutDetailID.Text);
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i == 0)
@@ -161,7 +160,7 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtCheckoutDetailID.Text = txtOrderID.Text = txtProductID.Text = txtQuantity.Text = txtTotalMoney.Text = "";
+            txtCheckoutDetailID.Text = txtFKOrderID.Text = txtFKProductID.Text = txtQuantity.Text = txtTotalMoney.Text = "";
         }
     }
 }

@@ -113,6 +113,7 @@
     <Content Include="Assets\img\dotNet.png" />
     <Content Include="Assets\img\logo.jpg" />
     <Content Include="Assets\img\logo1.jpg" />
+    <Content Include="CheckinDetail.aspx" />
     <Content Include="CheckoutDetail.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -136,9 +137,12 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Image.aspx" />
     <Content Include="Image1.aspx" />
+    <Content Include="ImportOrder.aspx" />
     <Content Include="MasterPage.Master" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Permission.aspx" />
+    <Content Include="Promote.aspx" />
+    <Content Include="Review.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -185,6 +189,13 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CheckinDetail.aspx.cs">
+      <DependentUpon>CheckinDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CheckinDetail.aspx.designer.cs">
+      <DependentUpon>CheckinDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CheckoutDetail.aspx.cs">
       <DependentUpon>CheckoutDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -237,6 +248,13 @@
     <Compile Include="Image1.aspx.designer.cs">
       <DependentUpon>Image1.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ImportOrder.aspx.cs">
+      <DependentUpon>ImportOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ImportOrder.aspx.designer.cs">
+      <DependentUpon>ImportOrder.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -251,7 +269,21 @@
     <Compile Include="Permission.aspx.designer.cs">
       <DependentUpon>Permission.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Promote.aspx.cs">
+      <DependentUpon>Promote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Promote.aspx.designer.cs">
+      <DependentUpon>Promote.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Review.aspx.cs">
+      <DependentUpon>Review.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Review.aspx.designer.cs">
+      <DependentUpon>Review.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

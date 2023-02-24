@@ -47,7 +47,6 @@ create table tblReview(
 	FK_iProductID int,
 	FK_iAccountID int,
 	iStarRating int,
-	sImage nvarchar(80),
 	dtReviewTime datetime,
 	constraint fk_review_product foreign key(FK_iProductID) references tblProduct (PK_iProductID),
 	constraint fk_review_account foreign key(FK_iAccountID) references tblUser(PK_iAccountID)
@@ -327,6 +326,218 @@ begin
 	delete from tblUser 
 	where PK_iAccountID = @PK_iAccountID
 end
+
 --6. CheckoutDetail
-select * from tblCheckoutDetail
+--insert
+go
+create proc proAddCheckoutDetail
+@FK_iOrderID int,
+@FK_iProductID int,
+@iQuantity int,
+@iTotalMoney int
+as
+begin
+	insert into tblCheckoutDetail values(@FK_iOrderID, @FK_iProductID, @iQuantity, @iTotalMoney)
+end
+
+--update
+go
+create proc proUpdateCheckoutDetail
+@PK_iCheckoutDetailID int,
+@FK_iOrderID int,
+@FK_iProductID int,
+@iQuantity int,
+@iTotalMoney int
+as
+begin
+	Update tblCheckoutDetail
+	set FK_iOrderID = @FK_iOrderID,
+	FK_iProductID = @FK_iProductID,
+	iQuantity = @iQuantity,
+	iTotalMoney = @iTotalMoney
+	where PK_iCheckoutDetailID = @PK_iCheckoutDetailID
+end
+
+--delete
+go
+create proc proDeleteCheckoutDetail
+@PK_iCheckoutDetailID int
+as
+begin
+	delete from tblCheckoutDetail 
+	where PK_iCheckoutDetailID = @PK_iCheckoutDetailID
+end
+
+--7. CheckinDetail
+--insert
+go
+create proc proAddCheckinDetail
+@FK_iImportOrderID int,
+@FK_iProductID int,
+@iQuatity int,
+@iPrice int,
+@iTotalMoney int 
+as
+begin
+	insert into tblCheckinDetail values(@FK_iImportOrderID, @FK_iProductID, @iQuatity, @iPrice, @iTotalMoney)
+end
+
+--update
+go
+create proc proUpdateCheckinDetail
+@PK_iCheckinDetailID int,
+@FK_iImportOrderID int,
+@FK_iProductID int,
+@iQuatity int,
+@iPrice int,
+@iTotalMoney int 
+as
+begin
+	Update tblCheckinDetail
+	set FK_iImportOrderID = @FK_iImportOrderID,
+	FK_iProductID = @FK_iProductID,
+	iQuatity = @iQuatity,
+	iPrice = @iPrice,
+	iTotalMoney = @iTotalMoney
+	where PK_iCheckinDetailID = @PK_iCheckinDetailID
+end
+
+--delete
+go
+create proc proDeleteCheckinDetail
+@PK_iCheckinDetailID int
+as
+begin
+	delete from tblCheckinDetail 
+	where PK_iCheckinDetailID = @PK_iCheckinDetailID
+end
+
+
+--8. Review
+--insert
+go
+create proc proAddReview
+@FK_iProductID int,
+@FK_iAccountID int,
+@iStarRating int,
+@dtReviewTime datetime
+as
+begin
+	insert into tblReview values(@FK_iProductID, @FK_iAccountID, @iStarRating, @dtReviewTime)
+end
+
+--update
+go
+create proc proUpdateReview
+@PK_iReviewID int,
+@FK_iProductID int,
+@FK_iAccountID int,
+@iStarRating int,
+@dtReviewTime datetime
+as
+begin
+	Update tblReview
+	set FK_iOrderID = @FK_iOrderID,
+	FK_iProductID = @FK_iProductID,
+	iQuantity = @iQuantity,
+	iTotalMoney = @iTotalMoney
+	where PK_iCheckoutDetailID = @PK_iCheckoutDetailID
+end
+
+--delete
+go
+create proc proDeleteReview
+@PK_iCheckoutDetailID int
+as
+begin
+	delete from tblReview 
+	where PK_iCheckoutDetailID = @PK_iCheckoutDetailID
+end
+
+--9. ImportOrder
+--insert
+go
+create proc proAddImportOrder
+@FK_iAccountID int,
+@FK_iSupplierID int,
+@dtDateAdded datetime,
+@sDeliver nvarchar(50)
+as
+begin
+	insert into tblImportOrder values(@FK_iAccountID, @FK_iSupplierID, @dtDateAdded, @sDeliver)
+end
+
+--update
+go
+create proc proUpdateImportOrder
+@PK_iImportOrderID int,
+@FK_iAccountID int,
+@FK_iSupplierID int,
+@dtDateAdded datetime,
+@sDeliver nvarchar(50)
+as
+begin
+	Update tblImportOrder
+	set FK_iAccountID = @FK_iAccountID,
+	FK_iSupplierID = @FK_iSupplierID,
+	dtDateAdded = @dtDateAdded,
+	sDeliver = @sDeliver
+	where PK_iImportOrderID = @PK_iImportOrderID
+end
+
+--delete
+go
+create proc proDeleteImportOrder
+@PK_iImportOrderID int
+as
+begin
+	delete from tblImportOrder 
+	where PK_iImportOrderID = @PK_iImportOrderID
+end
+
+--10. Promote
+--insert
+go
+create proc proAddPromote
+@sPromoteName nvarchar(100),
+@sPromoteRate float,
+@dtStartDay datetime,
+@dtEndDay datetime
+as
+begin
+	insert into tblPromote values(@sPromoteName, @sPromoteRate, @dtStartDay, @dtEndDay)
+end
+
+--update
+go
+create proc proUpdatePromote
+@PK_iPromoteID int,
+@sPromoteName nvarchar(100),
+@sPromoteRate float,
+@dtStartDay datetime,
+@dtEndDay datetime
+as
+begin
+	Update tblPromote
+	set sPromoteName = @sPromoteName,
+	sPromoteRate = @sPromoteRate,
+	dtStartDay = @dtStartDay,
+	dtEndDay = @dtEndDay
+	where PK_iPromoteID = @PK_iPromoteID
+end
+
+--delete
+go
+create proc proDeletePromote
+@PK_iPromoteID int
+as
+begin
+	delete from tblPromote 
+	where PK_iPromoteID = @PK_iPromoteID
+end
+
+exec proDeletePromote 1
+select * from tblPromote
+--11. Product
+--12. Supplier
 

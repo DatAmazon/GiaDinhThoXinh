@@ -11,7 +11,7 @@ namespace giadinhthoxinh1
 {
 
 
-    public partial class CheckoutDetail
+    public partial class Promote
     {
 
         /// <summary>
@@ -24,22 +24,22 @@ namespace giadinhthoxinh1
         protected global::System.Web.UI.WebControls.GridView dgv;
 
         /// <summary>
-        /// txtCheckoutDetailID control.
+        /// txtpromoteID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCheckoutDetailID;
+        protected global::System.Web.UI.WebControls.TextBox txtpromoteID;
 
         /// <summary>
-        /// txtFKOrderID control.
+        /// txtPromoteName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFKOrderID;
+        protected global::System.Web.UI.WebControls.TextBox txtPromoteName;
 
         /// <summary>
         /// rName control.
@@ -51,13 +51,13 @@ namespace giadinhthoxinh1
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rName;
 
         /// <summary>
-        /// txtFKProductID control.
+        /// txtPromoteRate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFKProductID;
+        protected global::System.Web.UI.WebControls.TextBox txtPromoteRate;
 
         /// <summary>
         /// reState control.
@@ -69,13 +69,13 @@ namespace giadinhthoxinh1
         protected global::System.Web.UI.WebControls.RequiredFieldValidator reState;
 
         /// <summary>
-        /// txtQuantity control.
+        /// txtStartDay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtQuantity;
+        protected global::System.Web.UI.WebControls.TextBox txtStartDay;
 
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -87,13 +87,22 @@ namespace giadinhthoxinh1
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
 
         /// <summary>
-        /// txtTotalMoney control.
+        /// txtEndDay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTotalMoney;
+        protected global::System.Web.UI.WebControls.TextBox txtEndDay;
+
+        /// <summary>
+        /// RequiredFieldValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
 
         /// <summary>
         /// lblNotify control.

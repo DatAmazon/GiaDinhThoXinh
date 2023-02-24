@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace giadinhthoxinh1
 {
-    public partial class Image : System.Web.UI.Page
+    public partial class ImportOrder : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
@@ -23,12 +23,13 @@ namespace giadinhthoxinh1
 
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("proAddCategory", cnn))
+                using (SqlCommand cmd = new SqlCommand("proAddImportOrder", cnn))
                 {
-
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
-
+                    cmd.Parameters.AddWithValue("@FK_iAccountID", txtFKAccountID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iSupplierID", txtFKSupplierID.Text);
+                    cmd.Parameters.AddWithValue("@dtDateAdded", txtDateAdded.Text);
+                    cmd.Parameters.AddWithValue("@sDeliver", txtDeliver.Text);
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i == 0)
@@ -51,7 +52,7 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection Cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand Cmd = new SqlCommand("select * from tblCategory", Cnn))
+                using (SqlCommand Cmd = new SqlCommand("select * from tblImportOrder", Cnn))
                 {
                     Cmd.CommandType = CommandType.Text;
                     Cnn.Open();
@@ -80,13 +81,17 @@ namespace giadinhthoxinh1
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label cateID = (Label)dgv.SelectedRow.FindControl("categoryID");
-            Label cateName = (Label)dgv.SelectedRow.FindControl("categoryName");
-            Label categoryState = (Label)dgv.SelectedRow.FindControl("categoryName");
+            Label importOrderID = (Label)dgv.SelectedRow.FindControl("importOrderID");
+            Label FKAccountID = (Label)dgv.SelectedRow.FindControl("FKAccountID");
+            Label FKSupplierID = (Label)dgv.SelectedRow.FindControl("FKSupplierID");
+            Label dtDateAdded = (Label)dgv.SelectedRow.FindControl("dtDateAdded");
+            Label deliver = (Label)dgv.SelectedRow.FindControl("deliver");
 
-            txtCategoryID.Text = cateID.Text.ToString();
-            txtCategoryName.Text = cateName.Text.ToString();
-            txtState.Text = categoryState.Text.ToString();
+            txtImportOrderID.Text = importOrderID.Text.ToString();
+            txtFKAccountID.Text = FKAccountID.Text.ToString();
+            txtFKSupplierID.Text = FKSupplierID.Text.ToString();
+            txtDateAdded.Text = dtDateAdded.Text.ToString();
+            txtDeliver.Text = deliver.Text.ToString();
 
         }
 
@@ -94,12 +99,14 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("proUpdateCategory", cnn))
+                using (SqlCommand cmd = new SqlCommand("proUpdateImportOrder", cnn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
-                    cmd.Parameters.AddWithValue("@iState", txtState.Text);
+                    cmd.Parameters.AddWithValue("@PK_iImportOrderID", txtImportOrderID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iAccountID", txtFKAccountID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iSupplierID", txtFKSupplierID.Text);
+                    cmd.Parameters.AddWithValue("@dtDateAdded", txtDateAdded.Text);
+                    cmd.Parameters.AddWithValue("@sDeliver", txtDeliver.Text);
 
 
                     cnn.Open();
@@ -124,10 +131,10 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("proDeleteCategory", cnn))
+                using (SqlCommand cmd = new SqlCommand("proDeleteImportOrder", cnn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
+                    cmd.Parameters.AddWithValue("@PK_iImportOrderID", txtImportOrderID.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -154,7 +161,7 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtCategoryID.Text = txtCategoryName.Text = "";
+            txtImportOrderID.Text = txtFKAccountID.Text = txtFKSupplierID.Text = txtDateAdded.Text = txtDeliver.Text = "";
         }
 
     }

@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace giadinhthoxinh1
 {
-    public partial class Image : System.Web.UI.Page
+    public partial class CheckinDetail : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
@@ -23,11 +23,15 @@ namespace giadinhthoxinh1
 
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("proAddCategory", cnn))
+                using (SqlCommand cmd = new SqlCommand("proAddCheckinDetail", cnn))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
+                    cmd.Parameters.AddWithValue("@FK_iImportOrderID", txtFKImportOrderID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iProductID", txtFKProductID.Text);
+                    cmd.Parameters.AddWithValue("@iQuatity", txtQuatity.Text);
+                    cmd.Parameters.AddWithValue("@iPrice", txtPrice.Text);
+                    cmd.Parameters.AddWithValue("@iTotalMoney", txtTotalMoney.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -51,7 +55,7 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection Cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand Cmd = new SqlCommand("select * from tblCategory", Cnn))
+                using (SqlCommand Cmd = new SqlCommand("select * from tblCheckinDetail", Cnn))
                 {
                     Cmd.CommandType = CommandType.Text;
                     Cnn.Open();
@@ -80,13 +84,21 @@ namespace giadinhthoxinh1
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label cateID = (Label)dgv.SelectedRow.FindControl("categoryID");
-            Label cateName = (Label)dgv.SelectedRow.FindControl("categoryName");
-            Label categoryState = (Label)dgv.SelectedRow.FindControl("categoryName");
+            Label checkinDetailID = (Label)dgv.SelectedRow.FindControl("checkinDetailID");
+            Label importOrderID = (Label)dgv.SelectedRow.FindControl("importOrderID");
+            Label productID = (Label)dgv.SelectedRow.FindControl("productID");
+            Label quatity = (Label)dgv.SelectedRow.FindControl("quatity");
+            Label price = (Label)dgv.SelectedRow.FindControl("price");
+            Label totalMoney = (Label)dgv.SelectedRow.FindControl("totalMoney");
 
-            txtCategoryID.Text = cateID.Text.ToString();
-            txtCategoryName.Text = cateName.Text.ToString();
-            txtState.Text = categoryState.Text.ToString();
+
+            txtCheckinDetailID.Text = checkinDetailID.Text.ToString();
+            txtFKImportOrderID.Text = importOrderID.Text.ToString();
+            txtFKProductID.Text = productID.Text.ToString();
+            txtQuatity.Text = quatity.Text.ToString();
+            txtPrice.Text = price.Text.ToString();
+            txtTotalMoney.Text = totalMoney.Text.ToString();
+
 
         }
 
@@ -94,13 +106,15 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("proUpdateCategory", cnn))
+                using (SqlCommand cmd = new SqlCommand("proUpdateCheckinDetail", cnn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
-                    cmd.Parameters.AddWithValue("@iState", txtState.Text);
-
+                    cmd.Parameters.AddWithValue("@PK_iCheckinDetailID", txtCheckinDetailID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iImportOrderID", txtFKImportOrderID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iProductID", txtFKProductID.Text);
+                    cmd.Parameters.AddWithValue("@iQuatity", txtQuatity.Text);
+                    cmd.Parameters.AddWithValue("@iPrice", txtPrice.Text);
+                    cmd.Parameters.AddWithValue("@iTotalMoney", txtTotalMoney.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -124,10 +138,10 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("proDeleteCategory", cnn))
+                using (SqlCommand cmd = new SqlCommand("proDeleteCheckinDetail", cnn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
+                    cmd.Parameters.AddWithValue("@PK_iCheckinDetailID", txtCheckinDetailID.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -154,8 +168,7 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtCategoryID.Text = txtCategoryName.Text = "";
+            txtCheckinDetailID.Text = txtFKImportOrderID.Text = txtFKProductID.Text = txtQuatity.Text = txtPrice.Text = txtTotalMoney.Text = "";
         }
-
     }
 }
