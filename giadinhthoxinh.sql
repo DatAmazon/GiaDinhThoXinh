@@ -150,6 +150,7 @@ begin
 end
 
 -----2. Image
+--insert
 go
 create proc proAddImage
 @FK_iImageID int,
@@ -177,6 +178,7 @@ begin
 end
 
 go
+--update
 create proc proUpdateImage
 @PK_iImageID int,
 @FK_iProductID int,
@@ -191,7 +193,7 @@ begin
 	iState = @state
 	where PK_iImageID = @PK_iImageID
 end
-
+--delete
 go
 create proc proDeleteImage
 @PK_iImageID int
@@ -200,7 +202,18 @@ begin
 	delete from tblImage 
 	where PK_iImageID = @PK_iImageID
 end
+-- get image to display
+go 
+alter proc proGetImageToDisplay
+@sId int
+as
+begin
+	select sImage from tblImage
+	where PK_iImageID = @sId
+end
 
+exec proGetImageToDisplay 2
+	select * from tblImage
 --3. Permission
 --insert
 go
@@ -325,6 +338,14 @@ as
 begin
 	delete from tblUser 
 	where PK_iAccountID = @PK_iAccountID
+end
+
+--drl get permission name up user
+go
+create proc proPermissionNameDisplayUser
+as
+begin
+	select *from tblPermission
 end
 
 --6. CheckoutDetail
@@ -598,10 +619,10 @@ select * from tblPromote
 --12. Order
 --insert
 go
-create proc proAddOrder
+alter proc proAddOrder
 @FK_iAccountID int,
 @sCustomerName nvarchar(50),
-@sCustomerPhone int,
+@sCustomerPhone varchar(12),
 @sDeliveryAddress nvarchar(1000),
 @dInvoidDate nvarchar(20),
 @sBiller nvarchar(15),
@@ -616,11 +637,11 @@ end
 
 --update
 go
-create proc proUpdateOrder
+alter proc proUpdateOrder
 @PK_iOrderID int,
 @FK_iAccountID int,
 @sCustomerName nvarchar(50),
-@sCustomerPhone int,
+@sCustomerPhone varchar(12),
 @sDeliveryAddress nvarchar(1000),
 @dInvoidDate nvarchar(20),
 @sBiller nvarchar(15),
@@ -641,7 +662,7 @@ end
 
 --delete
 go
-create proc proDeleteOrder
+alter proc proDeleteOrder
 @PK_iOrderID int
 as
 begin
@@ -649,9 +670,11 @@ begin
 	where PK_iOrderID = @PK_iOrderID
 end
 
-exec proDeletePromote 1
+exec proDeleteOrder 15
+
 select * from tblOrder
 exec proDeleteOrder 5
 
 	delete from tblOrder
-	where PK_iOrderID = 2
+	where PK_iOrderID = 14
+

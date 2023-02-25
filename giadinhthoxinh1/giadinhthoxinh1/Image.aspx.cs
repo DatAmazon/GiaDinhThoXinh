@@ -30,7 +30,7 @@ namespace giadinhthoxinh1
 
                 rptProduct.DataSource = productTable;
                 rptProduct.DataBind();
-                ShowList(); 
+                ShowList();
                 AddEnable();
             }
         }
@@ -136,13 +136,6 @@ namespace giadinhthoxinh1
         {
             if (dgv.SelectedDataKey != null)
             {
-                //Label imageID = (Label)dgv.SelectedRow.FindControl("imageID");
-                //Label category = (Label)dgv.SelectedRow.FindControl("sProductName");
-                //Label state = (Label)dgv.SelectedRow.FindControl("imageState");
-
-                //txtImageID.Text = imageID.Text.ToString();
-                //txtState.Text = state.Text.ToString();
-
                 using (SqlConnection cnn = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = cnn.CreateCommand())
@@ -174,6 +167,12 @@ namespace giadinhthoxinh1
 
                     }
                 }
+
+
+            }
+            else
+            {
+                txtState.Text = "TESST";
             }
             UpDateDelEnalble();
 

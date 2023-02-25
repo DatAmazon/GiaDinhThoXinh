@@ -15,6 +15,11 @@ namespace giadinhthoxinh1
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                ShowList();
+            }
+
             AddEnable();
         }
         public void AddEnable()
@@ -44,7 +49,7 @@ namespace giadinhthoxinh1
                     cmd.Parameters.AddWithValue("@sCustomerName", txtCustomerName.Text);
                     cmd.Parameters.AddWithValue("@sCustomerPhone", txtCustomerPhone.Text);
                     cmd.Parameters.AddWithValue("@sDeliveryAddress", txtDeliveryAddress.Text);
-                    cmd.Parameters.AddWithValue("@dInvoidDate", txtInvoidDate.Text);
+                    cmd.Parameters.AddWithValue("@dInvoidDate", DateTime.Now);
                     cmd.Parameters.AddWithValue("@sBiller", txtBiller.Text);
                     cmd.Parameters.AddWithValue("@iState", txtState.Text);
                     cnn.Open();
@@ -128,9 +133,9 @@ namespace giadinhthoxinh1
                     cmd.Parameters.AddWithValue("@PK_iOrderID", txtOrderID.Text);
                     cmd.Parameters.AddWithValue("@FK_iAccountID", txtAccountID.Text);
                     cmd.Parameters.AddWithValue("@sCustomerName", txtCustomerName.Text);
-                    cmd.Parameters.AddWithValue("@sCustomerPhone", txtCustomerPhone.Text);
+                    cmd.Parameters.AddWithValue("@sCustomerPhone", txtCustomerPhone.Text.ToString());
                     cmd.Parameters.AddWithValue("@sDeliveryAddress", txtDeliveryAddress.Text);
-                    cmd.Parameters.AddWithValue("@dInvoidDate", txtInvoidDate.Text);
+                    cmd.Parameters.AddWithValue("@dInvoidDate", DateTime.Now);
                     cmd.Parameters.AddWithValue("@sBiller", txtBiller.Text);
                     cmd.Parameters.AddWithValue("@iState", txtState.Text);
 

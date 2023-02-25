@@ -19,15 +19,22 @@
             }
         }
     </script>
+    <style>
+        .image-show {
+            width: 100px;
+            height: 100px;
+            object-fit: none cover;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<%--    <asp:ScriptManager ID="ScriptManager1"
+    <asp:ScriptManager ID="ScriptManager1"
         runat="server">
     </asp:ScriptManager>
 
 
     <asp:UpdatePanel ID="UpdatePanel2" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional">
-        <ContentTemplate>--%>
+        <ContentTemplate>
             <div class="wrap">
                 <div class="show-list">
                     <h1 class="title">Danh sách</h1>
@@ -67,7 +74,6 @@
                             <asp:TextBox ID="txtImageID" runat="server" Enabled="false" Width="184px"></asp:TextBox>
                         </p>
                         <p>
-                            <%--                    <span class="label">Chọn sản phẩm:</span>--%>
                             <asp:Repeater runat="server" ID="rptProduct">
                                 <ItemTemplate>
                                     <p>
@@ -89,8 +95,7 @@
                                 ForeColor="Red" Display="None" ValidationGroup="checkGroup"></asp:RequiredFieldValidator>
                         </p>
                         <p>
-                          
-                            <asp:Image class="image-show" ID="imageShow" runat ="server"/>
+                            <asp:Image class="image-show" ID="imageShow" runat="server" />
                         </p>
                         <p>
                             <span class="label">Trạng thái:</span>
@@ -117,9 +122,8 @@
                             <asp:Button ID="btnReset" class="btn" runat="server" Text="Reset" OnClick="btnReset_Click" />
                         </div>
                     </div>
-
                 </div>
             </div>
-<%--        </ContentTemplate>
-    </asp:UpdatePanel>--%>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 </asp:Content>

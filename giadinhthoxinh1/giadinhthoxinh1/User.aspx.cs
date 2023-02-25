@@ -15,8 +15,42 @@ namespace giadinhthoxinh1
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack) 
+            {
+                DataTable productTable = GetProduct();//table lấy sản phẩm
+                rptPermission.DataSource = productTable;
+                rptPermission.DataBind();
+                foreach (DataRow row in productTable.Rows)
+                {
+                    drlPermission.Items.Add(new ListItem(row["sPermissionName"].ToString(), row["PK_iPermissionID"].ToString()));
+                }
+
+                rptPermission.DataSource = productTable;
+                rptPermission.DataBind();
+                ShowList();
+                AddEnable();
+            }
             ShowList();
             AddEnable();
+        }
+        private DataTable GetProduct()//table lấy sản phẩm
+        {
+            using (SqlConnection cnn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "proPermissionNameDisplayUser";
+                    DataTable dt = new DataTable();
+                    cnn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        cnn.Close();
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
         }
         public void AddEnable()
         {
@@ -38,7 +72,6 @@ namespace giadinhthoxinh1
             {
                 using (SqlCommand cmd = cnn.CreateCommand())
                 {
-
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = "proAddUser";
                     cmd.Parameters.AddWithValue("@FK_iPermissionID", txtPermissionUser.Text);

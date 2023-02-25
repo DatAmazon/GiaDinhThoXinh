@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="User.aspx.cs" Inherits="giadinhthoxinh1.User" EnableEventValidation="false"  %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="User.aspx.cs" Inherits="giadinhthoxinh1.User" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="./Assets/css/component.css" />
@@ -74,7 +74,18 @@
                     <asp:RequiredFieldValidator ID="rName" runat="server" ControlToValidate="txtPermissionUser" ErrorMessage="Quyền không được bỏ trống"
                         ForeColor="Red" Display="None" ValidationGroup="checkGroup"></asp:RequiredFieldValidator>
                 </p>
+                <asp:Repeater runat="server" ID="rptPermission">
+                    <ItemTemplate>
+                        <p>
+                            <a class="product-name" href="<%#Eval("sPermissionName")%>"></a>
+                        </p>
+                    </ItemTemplate>
+                </asp:Repeater>
+                <p>
+                    <span class="label">Chọn quyền:</span>
+                    <asp:DropDownList ID="drlPermission" runat="server"></asp:DropDownList>
 
+                </p>
                 <p>
                     <span class="label">Email:</span>
                     <asp:TextBox ID="txtUserEmail" runat="server" Width="184px"></asp:TextBox>
