@@ -538,6 +538,120 @@ end
 
 exec proDeletePromote 1
 select * from tblPromote
---11. Product
---12. Supplier
 
+--11. Product
+--insert
+go
+create proc proAddProduct
+@FK_iCategoryID int,
+@FK_iPromoteID int,
+@sProductName nvarchar(50),
+@iPrice int,
+@sDescribe nvarchar(1000),
+@sColor nvarchar(20),
+@sSize nvarchar(15)
+
+as
+begin
+	insert into tblProduct
+	values( @FK_iCategoryID, @FK_iPromoteID, @sProductName, @iPrice, @sDescribe, @sColor, @sSize)
+end
+
+--update
+go
+alter proc proUpdateProduct
+@PK_iProductID int,
+@FK_iCategoryID int,
+@FK_iPromoteID int,
+@sProductName nvarchar(50),
+@iPrice int,
+@sDescribe nvarchar(1000),
+@sColor nvarchar(20),
+@sSize nvarchar(15)
+as
+begin
+	Update tblProduct
+	set FK_iCategoryID = @FK_iCategoryID,
+	FK_iPromoteID = @FK_iPromoteID,
+	sProductName = @sProductName,
+	iPrice = @iPrice,
+	sDescribe = @sDescribe,
+	sColor = @sColor,
+	sSize =@sSize
+	where PK_iProductID = @PK_iProductID
+end
+
+--delete
+go
+create proc proDeleteProduct
+@PK_iProductID int
+as
+begin
+	delete from tblProduct 
+	where PK_iProductID = @PK_iProductID
+end
+
+exec proDeletePromote 1
+select * from tblPromote
+
+
+--12. Order
+--insert
+go
+create proc proAddOrder
+@FK_iAccountID int,
+@sCustomerName nvarchar(50),
+@sCustomerPhone int,
+@sDeliveryAddress nvarchar(1000),
+@dInvoidDate nvarchar(20),
+@sBiller nvarchar(15),
+@iState int
+
+as
+begin
+	insert into tblOrder
+	values( @FK_iAccountID, @sCustomerName, @sCustomerPhone,
+	@sDeliveryAddress, @dInvoidDate, @sBiller, @iState)
+end
+
+--update
+go
+create proc proUpdateOrder
+@PK_iOrderID int,
+@FK_iAccountID int,
+@sCustomerName nvarchar(50),
+@sCustomerPhone int,
+@sDeliveryAddress nvarchar(1000),
+@dInvoidDate nvarchar(20),
+@sBiller nvarchar(15),
+@iState int
+
+as
+begin
+	Update tblOrder
+	set FK_iAccountID = @FK_iAccountID,
+	sCustomerName = @sCustomerName,
+	sCustomerPhone = @sCustomerPhone,
+	sDeliveryAddress = @sDeliveryAddress,
+	dInvoidDate = @dInvoidDate,
+	sBiller = @sBiller,
+	iState =@iState
+	where PK_iOrderID = @PK_iOrderID
+end
+
+--delete
+go
+create proc proDeleteOrder
+@PK_iOrderID int
+as
+begin
+	delete from tblOrder
+	where PK_iOrderID = @PK_iOrderID
+end
+
+exec proDeletePromote 1
+select * from tblOrder
+exec proDeleteOrder 5
+
+	delete from tblOrder
+	where PK_iOrderID = 2

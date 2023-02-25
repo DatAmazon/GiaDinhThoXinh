@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace giadinhthoxinh1
 {
-    public partial class DanhMuc : System.Web.UI.Page
+    public partial class Order : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
@@ -29,17 +29,24 @@ namespace giadinhthoxinh1
             btnUpdate.Enabled = true;
             btnDel.Enabled = true;
         }
+
         protected void btnAdd_Click(object sender, EventArgs e)
         {
+
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = cnn.CreateCommand())
+                using (SqlCommand cmd = new SqlCommand("proAddOrder", cnn))
                 {
 
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proAddCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.AddWithValue("@FK_iAccountID", txtAccountID.Text);
+                    cmd.Parameters.AddWithValue("@sCustomerName", txtCustomerName.Text);
+                    cmd.Parameters.AddWithValue("@sCustomerPhone", txtCustomerPhone.Text);
+                    cmd.Parameters.AddWithValue("@sDeliveryAddress", txtDeliveryAddress.Text);
+                    cmd.Parameters.AddWithValue("@dInvoidDate", txtInvoidDate.Text);
+                    cmd.Parameters.AddWithValue("@sBiller", txtBiller.Text);
+                    cmd.Parameters.AddWithValue("@iState", txtState.Text);
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
                     if (i == 0)
@@ -62,14 +69,14 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection Cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand Cmd = new SqlCommand("select * from tblCategory", Cnn))
+                using (SqlCommand Cmd = new SqlCommand("select * from tblOrder", Cnn))
                 {
                     Cmd.CommandType = CommandType.Text;
                     Cnn.Open();
                     using (SqlDataReader reader = Cmd.ExecuteReader())
                     {
-                        dgvCategory.DataSource = reader;
-                        dgvCategory.DataBind();
+                        dgv.DataSource = reader;
+                        dgv.DataBind();
 
                     }
                     Cnn.Close();
@@ -84,17 +91,30 @@ namespace giadinhthoxinh1
                 case DataControlRowType.Header:
                     break;
                 case DataControlRowType.DataRow:
-                    e.Row.Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(this.dgvCategory, "Select$" + e.Row.RowIndex));
+                    e.Row.Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(this.dgv, "Select$" + e.Row.RowIndex));
                     break;
             }
         }
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label cateID = (Label)dgvCategory.SelectedRow.FindControl("categoryID");
-            Label cateName = (Label)dgvCategory.SelectedRow.FindControl("categoryName");
-            txtCategoryID.Text = cateID.Text.ToString();
-            txtCategoryName.Text = cateName.Text.ToString();
+            Label orderID = (Label)dgv.SelectedRow.FindControl("orderID");
+            Label accountID = (Label)dgv.SelectedRow.FindControl("accountID");
+            Label customerName = (Label)dgv.SelectedRow.FindControl("customerName");
+            Label customerPhone = (Label)dgv.SelectedRow.FindControl("customerPhone");
+            Label deliveryAddress = (Label)dgv.SelectedRow.FindControl("deliveryAddress");
+            Label invoidDate = (Label)dgv.SelectedRow.FindControl("invoidDate");
+            Label biller = (Label)dgv.SelectedRow.FindControl("biller");
+            Label state = (Label)dgv.SelectedRow.FindControl("state");
+
+            txtOrderID.Text = orderID.Text.ToString();
+            txtAccountID.Text = accountID.Text.ToString();
+            txtCustomerName.Text = customerName.Text.ToString();
+            txtCustomerPhone.Text = customerPhone.Text.ToString();
+            txtDeliveryAddress.Text = deliveryAddress.Text.ToString();
+            txtInvoidDate.Text = invoidDate.Text.ToString();
+            txtBiller.Text = biller.Text.ToString();
+            txtState.Text = state.Text.ToString();
             UpDateDelEnalble();
         }
 
@@ -102,12 +122,17 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = cnn.CreateCommand())
+                using (SqlCommand cmd = new SqlCommand("proUpdateOrder", cnn))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proUpdateCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PK_iOrderID", txtOrderID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iAccountID", txtAccountID.Text);
+                    cmd.Parameters.AddWithValue("@sCustomerName", txtCustomerName.Text);
+                    cmd.Parameters.AddWithValue("@sCustomerPhone", txtCustomerPhone.Text);
+                    cmd.Parameters.AddWithValue("@sDeliveryAddress", txtDeliveryAddress.Text);
+                    cmd.Parameters.AddWithValue("@dInvoidDate", txtInvoidDate.Text);
+                    cmd.Parameters.AddWithValue("@sBiller", txtBiller.Text);
+                    cmd.Parameters.AddWithValue("@iState", txtState.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -131,11 +156,10 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = cnn.CreateCommand())
+                using (SqlCommand cmd = new SqlCommand("proDeleteOrder", cnn))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proDeleteCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PK_iOrderID", txtOrderID.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -162,8 +186,9 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtCategoryID.Text = txtCategoryName.Text = "";
+            txtOrderID.Text = txtAccountID.Text = txtCustomerName.Text = txtCustomerPhone.Text = txtDeliveryAddress.Text = txtInvoidDate.Text = txtBiller.Text = txtState.Text = txtOrderID.Text = "";
             AddEnable();
         }
+
     }
 }

@@ -17,8 +17,19 @@ namespace giadinhthoxinh1
         {
       
                 ShowList();
-            
-
+            AddEnable();
+        }
+        public void AddEnable()
+        {
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDel.Enabled = false;
+        }
+        public void UpDateDelEnalble()
+        {
+            btnAdd.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDel.Enabled = true;
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
@@ -91,7 +102,7 @@ namespace giadinhthoxinh1
             txtPermissionID.Text = permissionID.Text.ToString();
             txtPermissionName.Text = permissionName.Text.ToString();
             txtState.Text = permissionState.Text.ToString();
-
+            UpDateDelEnalble();
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -160,6 +171,7 @@ namespace giadinhthoxinh1
         public void Reset()
         {
             txtPermissionName.Text = txtState.Text = txtPermissionID.Text = "";
+            AddEnable();
         }
     }
 }

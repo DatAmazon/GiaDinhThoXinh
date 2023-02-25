@@ -7,14 +7,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 namespace giadinhthoxinh1
 {
-    public partial class DanhMuc : System.Web.UI.Page
+    public partial class Product : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            ShowList();
             AddEnable();
         }
         public void AddEnable()
@@ -29,16 +29,23 @@ namespace giadinhthoxinh1
             btnUpdate.Enabled = true;
             btnDel.Enabled = true;
         }
+
         protected void btnAdd_Click(object sender, EventArgs e)
         {
+
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = cnn.CreateCommand())
+                using (SqlCommand cmd = new SqlCommand("proAddProduct", cnn))
                 {
 
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proAddCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@FK_iCategoryID", txtCategoryID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iPromoteID", txtPromoteID.Text);
+                    cmd.Parameters.AddWithValue("@sProductName", txtProductName.Text);
+                    cmd.Parameters.AddWithValue("@iPrice", txtPrice.Text);
+                    cmd.Parameters.AddWithValue("@sDescribe", txtDescrible.Text);
+                    cmd.Parameters.AddWithValue("@sColor", txtColor.Text);
+                    cmd.Parameters.AddWithValue("@sSize", txtSize.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -62,14 +69,14 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection Cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand Cmd = new SqlCommand("select * from tblCategory", Cnn))
+                using (SqlCommand Cmd = new SqlCommand("select * from tblProduct", Cnn))
                 {
                     Cmd.CommandType = CommandType.Text;
                     Cnn.Open();
                     using (SqlDataReader reader = Cmd.ExecuteReader())
                     {
-                        dgvCategory.DataSource = reader;
-                        dgvCategory.DataBind();
+                        dgv.DataSource = reader;
+                        dgv.DataBind();
 
                     }
                     Cnn.Close();
@@ -84,30 +91,50 @@ namespace giadinhthoxinh1
                 case DataControlRowType.Header:
                     break;
                 case DataControlRowType.DataRow:
-                    e.Row.Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(this.dgvCategory, "Select$" + e.Row.RowIndex));
+                    e.Row.Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(this.dgv, "Select$" + e.Row.RowIndex));
                     break;
             }
         }
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label cateID = (Label)dgvCategory.SelectedRow.FindControl("categoryID");
-            Label cateName = (Label)dgvCategory.SelectedRow.FindControl("categoryName");
-            txtCategoryID.Text = cateID.Text.ToString();
-            txtCategoryName.Text = cateName.Text.ToString();
+            Label productID = (Label)dgv.SelectedRow.FindControl("productID");
+            Label categoryID = (Label)dgv.SelectedRow.FindControl("categoryID");
+            Label promoteID = (Label)dgv.SelectedRow.FindControl("promoteID");
+            Label productName = (Label)dgv.SelectedRow.FindControl("productName");
+            Label price = (Label)dgv.SelectedRow.FindControl("price");
+            Label describle = (Label)dgv.SelectedRow.FindControl("describle");
+            Label color = (Label)dgv.SelectedRow.FindControl("color");
+            Label size = (Label)dgv.SelectedRow.FindControl("size");
+
+            txtProductID.Text = productID.Text.ToString();
+            txtCategoryID.Text = categoryID.Text.ToString();
+            txtPromoteID.Text = promoteID.Text.ToString();
+            txtProductName.Text = productName.Text.ToString();
+            txtPrice.Text = price.Text.ToString();
+            txtDescrible.Text = describle.Text.ToString();
+            txtColor.Text = color.Text.ToString();
+            txtSize.Text = size.Text.ToString();
             UpDateDelEnalble();
+
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = cnn.CreateCommand())
+                using (SqlCommand cmd = new SqlCommand("proUpdateProduct", cnn))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proUpdateCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
-                    cmd.Parameters.AddWithValue("@sCategoryName", txtCategoryName.Text);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PK_iProductID", txtProductID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iCategoryID", txtCategoryID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iPromoteID", txtPromoteID.Text);
+                    cmd.Parameters.AddWithValue("@sProductName", txtProductName.Text);
+                    cmd.Parameters.AddWithValue("@iPrice", txtPrice.Text);
+                    cmd.Parameters.AddWithValue("@sDescribe", txtDescrible.Text);
+                    cmd.Parameters.AddWithValue("@sColor", txtColor.Text);
+                    cmd.Parameters.AddWithValue("@sSize", txtSize.Text);
+
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -131,11 +158,10 @@ namespace giadinhthoxinh1
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = cnn.CreateCommand())
+                using (SqlCommand cmd = new SqlCommand("proDeleteProduct", cnn))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.CommandText = "proDeleteCategory";
-                    cmd.Parameters.AddWithValue("@sCategoryID", txtCategoryID.Text);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PK_iProductID", txtProductID.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -147,6 +173,7 @@ namespace giadinhthoxinh1
                     else
                     {
                         lblNotify.Text = "Xóa thành công";
+
                     }
                     cnn.Close();
 
@@ -162,7 +189,7 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtCategoryID.Text = txtCategoryName.Text = "";
+            txtProductID.Text = txtCategoryID.Text = txtPromoteID.Text = txtProductName.Text = txtPrice.Text = txtDescrible.Text = txtColor.Text = txtSize.Text = txtProductID.Text = "";
             AddEnable();
         }
     }

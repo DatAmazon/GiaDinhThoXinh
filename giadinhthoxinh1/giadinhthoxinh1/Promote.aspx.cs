@@ -15,8 +15,20 @@ namespace giadinhthoxinh1
         protected void Page_Load(object sender, EventArgs e)
         {
             ShowList();
+            AddEnable();
         }
-
+        public void AddEnable()
+        {
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDel.Enabled = false;
+        }
+        public void UpDateDelEnalble()
+        {
+            btnAdd.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDel.Enabled = true;
+        }
         protected void btnAdd_Click(object sender, EventArgs e)
         {
 
@@ -94,6 +106,7 @@ namespace giadinhthoxinh1
             txtPromoteRate.Text = promoteRate.Text.ToString();
             txtStartDay.Text = dtStartDay.Text.ToString();
             txtEndDay.Text = dtEndDay.Text.ToString();
+            UpDateDelEnalble();
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -163,7 +176,7 @@ namespace giadinhthoxinh1
         public void Reset()
         {
             txtpromoteID.Text = txtPromoteName.Text = txtPromoteRate.Text = txtStartDay.Text = txtEndDay.Text = "";
-
+            AddEnable();
         }
 
     }

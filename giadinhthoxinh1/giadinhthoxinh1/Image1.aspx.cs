@@ -16,8 +16,20 @@ namespace giadinhthoxinh1
         protected void Page_Load(object sender, EventArgs e)
         {
             ShowList();
+            AddEnable();
         }
-
+        public void AddEnable()
+        {
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDel.Enabled = false;
+        }
+        public void UpDateDelEnalble()
+        {
+            btnAdd.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDel.Enabled = true;
+        }
         protected void btnAdd_Click(object sender, EventArgs e)
         {
 
@@ -87,7 +99,7 @@ namespace giadinhthoxinh1
             txtCategoryID.Text = cateID.Text.ToString();
             txtCategoryName.Text = cateName.Text.ToString();
             txtState.Text = categoryState.Text.ToString();
-
+            UpDateDelEnalble();
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -154,7 +166,8 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtCategoryID.Text = txtCategoryName.Text = "";
+            txtCategoryID.Text = txtCategoryName.Text = txtState.Text = "";
+            AddEnable();
         }
 
     }

@@ -140,7 +140,9 @@
     <Content Include="ImportOrder.aspx" />
     <Content Include="MasterPage.Master" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Order.aspx" />
     <Content Include="Permission.aspx" />
+    <Content Include="Product.aspx" />
     <Content Include="Promote.aspx" />
     <Content Include="Review.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -262,12 +264,26 @@
     <Compile Include="MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
+    <Compile Include="Order.aspx.cs">
+      <DependentUpon>Order.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Order.aspx.designer.cs">
+      <DependentUpon>Order.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Permission.aspx.cs">
       <DependentUpon>Permission.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Permission.aspx.designer.cs">
       <DependentUpon>Permission.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Product.aspx.cs">
+      <DependentUpon>Product.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Product.aspx.designer.cs">
+      <DependentUpon>Product.aspx</DependentUpon>
     </Compile>
     <Compile Include="Promote.aspx.cs">
       <DependentUpon>Promote.aspx</DependentUpon>

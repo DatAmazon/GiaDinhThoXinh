@@ -16,8 +16,20 @@ namespace giadinhthoxinh1
         protected void Page_Load(object sender, EventArgs e)
         {
             ShowList();
+            AddEnable();
         }
-
+        public void AddEnable()
+        {
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDel.Enabled = false;
+        }
+        public void UpDateDelEnalble()
+        {
+            btnAdd.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDel.Enabled = true;
+        }
         protected void btnAdd_Click(object sender, EventArgs e)
         {
 
@@ -95,7 +107,7 @@ namespace giadinhthoxinh1
             txtSupplierPhone.Text = supplierPhone.Text.ToString();
             txtSupplierEmail.Text = supplierEmail.Text.ToString();
             txtSupplierAddress.Text = supplierAddress.Text.ToString();
-
+            UpDateDelEnalble();
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -166,7 +178,7 @@ namespace giadinhthoxinh1
         public void Reset()
         {
             txtSupplierID.Text = txtSupplierName.Text = txtSupplierPhone.Text = txtSupplierEmail.Text = txtSupplierAddress.Text = "";
-
+            AddEnable();
         }
     }
 }

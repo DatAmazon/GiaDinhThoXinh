@@ -16,8 +16,20 @@ namespace giadinhthoxinh1
         protected void Page_Load(object sender, EventArgs e)
         {
             ShowList();
+            AddEnable();
         }
-
+        public void AddEnable()
+        {
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDel.Enabled = false;
+        }
+        public void UpDateDelEnalble()
+        {
+            btnAdd.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDel.Enabled = true;
+        }
         protected void btnAdd_Click(object sender, EventArgs e)
         {
 

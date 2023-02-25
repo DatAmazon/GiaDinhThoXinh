@@ -30,10 +30,24 @@ namespace giadinhthoxinh1
 
                 rptProduct.DataSource = productTable;
                 rptProduct.DataBind();
-                ShowList();
+                ShowList(); 
+                AddEnable();
             }
         }
 
+
+        public void AddEnable()
+        {
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDel.Enabled = false;
+        }
+        public void UpDateDelEnalble()
+        {
+            btnAdd.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDel.Enabled = true;
+        }
         private DataTable GetProduct()//table lấy sản phẩm
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
@@ -161,7 +175,7 @@ namespace giadinhthoxinh1
                     }
                 }
             }
-
+            UpDateDelEnalble();
 
         }
 
@@ -289,6 +303,7 @@ namespace giadinhthoxinh1
         public void Reset()
         {
             txtState.Text = "";
+            AddEnable();
 
         }
 

@@ -16,8 +16,20 @@ namespace giadinhthoxinh1
         protected void Page_Load(object sender, EventArgs e)
         {
             ShowList();
+            AddEnable();
         }
-
+        public void AddEnable()
+        {
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDel.Enabled = false;
+        }
+        public void UpDateDelEnalble()
+        {
+            btnAdd.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDel.Enabled = true;
+        }
         protected void btnAdd_Click(object sender, EventArgs e)
         {
 
@@ -98,7 +110,7 @@ namespace giadinhthoxinh1
             txtQuatity.Text = quatity.Text.ToString();
             txtPrice.Text = price.Text.ToString();
             txtTotalMoney.Text = totalMoney.Text.ToString();
-
+            UpDateDelEnalble();
 
         }
 
@@ -169,6 +181,7 @@ namespace giadinhthoxinh1
         public void Reset()
         {
             txtCheckinDetailID.Text = txtFKImportOrderID.Text = txtFKProductID.Text = txtQuatity.Text = txtPrice.Text = txtTotalMoney.Text = "";
+            AddEnable();
         }
     }
 }
