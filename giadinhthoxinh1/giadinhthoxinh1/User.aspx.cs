@@ -15,7 +15,7 @@ namespace giadinhthoxinh1
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) 
+            if (!IsPostBack)
             {
                 DataTable productTable = GetProduct();//table lấy sản phẩm
                 rptPermission.DataSource = productTable;
@@ -74,7 +74,7 @@ namespace giadinhthoxinh1
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = "proAddUser";
-                    cmd.Parameters.AddWithValue("@FK_iPermissionID", txtPermissionUser.Text);
+                    cmd.Parameters.AddWithValue("@FK_iPermissionID", drlPermission.SelectedValue);
                     cmd.Parameters.AddWithValue("@sEmail", txtUserEmail.Text);
                     cmd.Parameters.AddWithValue("@sPass", txtUserPass.Text);
                     cmd.Parameters.AddWithValue("@sUserName", txtUsername.Text);
@@ -132,23 +132,62 @@ namespace giadinhthoxinh1
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label userID = (Label)dgv.SelectedRow.FindControl("userID");
-            Label userPermission = (Label)dgv.SelectedRow.FindControl("userPermission");
-            Label userEmail = (Label)dgv.SelectedRow.FindControl("userEmail");
-            Label userUsername = (Label)dgv.SelectedRow.FindControl("userUsername");
-            Label userPass = (Label)dgv.SelectedRow.FindControl("userPass");
-            Label userPhone = (Label)dgv.SelectedRow.FindControl("userPhone");
-            Label userAddress = (Label)dgv.SelectedRow.FindControl("userAddress");
-            Label userState = (Label)dgv.SelectedRow.FindControl("userState");
+            //Label userID = (Label)dgv.SelectedRow.FindControl("userID");
+            //Label userPermission = (Label)dgv.SelectedRow.FindControl("userPermission");
+            //Label userEmail = (Label)dgv.SelectedRow.FindControl("userEmail");
+            //Label userUsername = (Label)dgv.SelectedRow.FindControl("userUsername");
+            //Label userPass = (Label)dgv.SelectedRow.FindControl("userPass");
+            //Label userPhone = (Label)dgv.SelectedRow.FindControl("userPhone");
+            //Label userAddress = (Label)dgv.SelectedRow.FindControl("userAddress");
+            //Label userState = (Label)dgv.SelectedRow.FindControl("userState");
 
-            txtUserID.Text = userID.Text.ToString();
-            txtPermissionUser.Text = userPermission.Text.ToString();
-            txtUserEmail.Text = userEmail.Text.ToString();
-            txtUsername.Text = userUsername.Text.ToString();
-            txtUserPass.Text = userPass.Text.ToString();
-            txtUserPhone.Text = userPhone.Text.ToString();
-            txtUserAddress.Text = userAddress.Text.ToString();
-            txtUserState.Text = userState.Text.ToString();
+            //txtUserID.Text = userID.Text.ToString();
+            ////txtPermissionUser.Text = userPermission.Text.ToString();
+            //txtUserEmail.Text = userEmail.Text.ToString();
+            //txtUsername.Text = userUsername.Text.ToString();
+            //txtUserPass.Text = userPass.Text.ToString();
+            //txtUserPhone.Text = userPhone.Text.ToString();
+            //txtUserAddress.Text = userAddress.Text.ToString();
+            //txtUserState.Text = userState.Text.ToString();
+            //UpDateDelEnalble();
+
+            if (dgv.SelectedDataKey != null)
+            {
+                using (SqlConnection cnn = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("procSelectUserByID", cnn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@PK_iAccountID", dgv.SelectedValue.ToString());
+                        cnn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        if (dataReader.HasRows)
+                        {
+
+                            dataReader.Read();
+                            //txtAccountID.Text = dataReader["PK_iAccountID"].ToString();
+                            //string idPermission = dataReader["FK_iPermissionID"].ToString();
+                            //foreach (ListItem item in drlPermission.Items)
+                            //{
+                            //    if (item.Value.Equals(idPermission))
+                            //    {
+                            //        drlPermission.ClearSelection();
+                            //        item.Selected = true;
+                            //        break;
+                            //    }
+                            //}
+                            txtUserEmail.Text = dataReader["sEmail"].ToString();
+                            txtUsername.Text = dataReader["sUserName"].ToString();
+                            txtUserPass.Text = dataReader["sPass"].ToString();
+                            txtUserPhone.Text = dataReader["sPhone"].ToString();
+                            txtUserAddress.Text = dataReader["sAddress"].ToString();
+                            txtUserState.Text = dataReader["iState"].ToString();
+                        }
+                        cnn.Close();
+                    }
+                }
+
+            }
             UpDateDelEnalble();
         }
 
@@ -160,8 +199,8 @@ namespace giadinhthoxinh1
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = "proUpdateUser";
-                    cmd.Parameters.AddWithValue("@PK_iAccountID", txtUserID.Text);
-                    cmd.Parameters.AddWithValue("@FK_iPermissionID", txtPermissionUser.Text);
+                    cmd.Parameters.AddWithValue("@PK_iAccountID", txtAccountID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iPermissionID", drlPermission.SelectedValue);
                     cmd.Parameters.AddWithValue("@sEmail", txtUserEmail.Text);
                     cmd.Parameters.AddWithValue("@sPass", txtUserPass.Text);
                     cmd.Parameters.AddWithValue("@sUserName", txtUsername.Text);
@@ -195,7 +234,7 @@ namespace giadinhthoxinh1
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.CommandText = "proDeleteUser";
-                    cmd.Parameters.AddWithValue("@PK_iAccountID", txtUserID.Text);
+                    cmd.Parameters.AddWithValue("@PK_iAccountID", txtAccountID.Text);
 
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -222,7 +261,8 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtUserID.Text = txtPermissionUser.Text = txtUserEmail.Text = txtUsername.Text = txtUserPass.Text = txtUserPhone.Text = txtUserAddress.Text = txtUserState.Text = "";
+            txtAccountID.Text = txtUserEmail.Text = txtUsername.Text = txtUserPass.Text = txtUserPhone.Text = txtUserAddress.Text = txtUserState.Text = "";
+
             AddEnable();
         }
     }

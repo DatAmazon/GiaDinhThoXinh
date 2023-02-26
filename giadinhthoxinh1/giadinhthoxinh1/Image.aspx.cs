@@ -138,19 +138,17 @@ namespace giadinhthoxinh1
             {
                 using (SqlConnection cnn = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = cnn.CreateCommand())
+                    using (SqlCommand cmd = new SqlCommand("procSelectImageByID", cnn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "pro_Image";
                         cmd.Parameters.AddWithValue("@PK_iImageID", dgv.SelectedValue.ToString());
                         cnn.Open();
-                        SqlDataReader data = cmd.ExecuteReader();
-                        if (data.HasRows)
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        if (dataReader.HasRows)
                         {
-                            data.Read();
-                            txtImageID.Text = data["PK_iImageID"].ToString();
-                            txtState.Text = data["iState"].ToString();
-                            string id_sanpham = data["FK_iProductID"].ToString();
+                            dataReader.Read();
+                            txtImageID.Text = dataReader["PK_iImageID"].ToString();
+                            string id_sanpham = dataReader["FK_iProductID"].ToString();
                             foreach (ListItem item in drlProduct.Items)
                             {
                                 if (item.Value.Equals(id_sanpham))
@@ -160,14 +158,12 @@ namespace giadinhthoxinh1
                                     break;
                                 }
                             }
-                            imageShow.ImageUrl = data["sImage"].ToString();
+                            imageShow.ImageUrl = dataReader["sImage"].ToString();
+                            txtState.Text = dataReader["iState"].ToString();
                         }
-
                         cnn.Close();
-
                     }
                 }
-
 
             }
             else
@@ -175,7 +171,6 @@ namespace giadinhthoxinh1
                 txtState.Text = "TESST";
             }
             UpDateDelEnalble();
-
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)

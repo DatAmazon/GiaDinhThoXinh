@@ -5,13 +5,8 @@
     <script type="text/javascript">
         function ShowPreview(input) {
             if (input.files && input.files[0]) {
-                //   var image = document.getElementyId('ContentPlaceHolder1_Image1');
-                //   img.src = URL.createObjectURL(event.target.files[0]);
-                //  console.log('a');
                 var ImageDir = new FileReader();
                 ImageDir.onload = function (e) {
-                    //Jquery
-                    //  $('#ContentPlaceHolder1_Image1').attr('src', e.target.result);
                     var image = document.getElementById('ContentPlaceHolder1_imageShow');
                     image.src = e.target.result;
                 }
@@ -31,7 +26,6 @@
     <asp:ScriptManager ID="ScriptManager1"
         runat="server">
     </asp:ScriptManager>
-
 
     <asp:UpdatePanel ID="UpdatePanel2" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional">
         <ContentTemplate>
@@ -95,6 +89,7 @@
                                 ForeColor="Red" Display="None" ValidationGroup="checkGroup"></asp:RequiredFieldValidator>
                         </p>
                         <p>
+                            <span class="label">Hình ảnh:</span>
                             <asp:Image class="image-show" ID="imageShow" runat="server" />
                         </p>
                         <p>

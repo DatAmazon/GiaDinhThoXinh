@@ -64,11 +64,27 @@
                         ForeColor="Red" Display="None" ValidationGroup="checkGroup"></asp:RequiredFieldValidator>
                 </p>
 
-                <p>
+<%--                <p>
                     <span class="label">Mã sản phẩm:</span>
                     <asp:TextBox ID="txtFKProductID" runat="server" Width="184px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="reState" runat="server" ControlToValidate="txtFKProductID" ErrorMessage="Mã sản phẩm không được bỏ trống"
                         ForeColor="Red" Display="None" ValidationGroup="checkGroup"></asp:RequiredFieldValidator>
+                </p>--%>
+                
+                <p>
+                    <asp:Repeater runat="server" ID="rptProduct">
+                        <ItemTemplate>
+                            <p>
+                                <a class="product-name" href="<%#Eval("sProductName")%>"></a>
+                            </p>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </p>
+
+                <p>
+                    <span class="label">Tên sản phẩm:</span>
+                    <asp:DropDownList ID="drlProductName" runat="server"></asp:DropDownList>
+
                 </p>
 
                 <p>

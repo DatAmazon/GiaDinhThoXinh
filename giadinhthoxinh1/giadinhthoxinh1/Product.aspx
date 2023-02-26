@@ -68,17 +68,52 @@
                     <span class="label">Mã sản phẩm:</span>
                     <asp:TextBox ID="txtProductID" runat="server" Enabled="false" Width="184px"></asp:TextBox>
                 </p>
-                <p>
+<%--                <p>
                     <span class="label">Mã danh mục:</span>
                     <asp:TextBox ID="txtCategoryID" runat="server" Width="184px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rName" runat="server" ControlToValidate="txtCategoryID" ErrorMessage="Mã danh mục không được bỏ trống"
                         ForeColor="Red" Display="None" ValidationGroup="checkGroup"></asp:RequiredFieldValidator>
-                </p>
+                </p>--%>
+
                 <p>
+                    <asp:Repeater runat="server" ID="rptCategory">
+                        <ItemTemplate>
+                            <p>
+                                <a class="category-name" href="<%#Eval("sCategoryName")%>"></a>
+                            </p>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </p>
+
+                <p>
+                    <span class="label">Tên danh mục:</span>
+                    <asp:DropDownList ID="drlCategory" runat="server"></asp:DropDownList>
+
+                </p>
+
+<%--                <p>
                     <span class="label">Mã khuyến mãi:</span>
                     <asp:TextBox ID="txtPromoteID" runat="server" Width="184px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="reState" runat="server" ControlToValidate="txtPromoteID" ErrorMessage="Mã khuyến mãi không được bỏ trống" ForeColor="Red" Display="None" ValidationGroup="checkGroup"></asp:RequiredFieldValidator>
+                </p>--%>
+
+
+                <p>
+                    <asp:Repeater runat="server" ID="rptPromote">
+                        <ItemTemplate>
+                            <p>
+                                <a class="promote-name" href="<%#Eval("sPromoteName")%>"></a>
+                            </p>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </p>
+
+                <p>
+                    <span class="label">Tên khuyến mại:</span>
+                    <asp:DropDownList ID="drlPromote" runat="server"></asp:DropDownList>
+
+                </p>
+
                 <p>
                     <span class="label">Tên sản phẩm:</span>
                     <asp:TextBox ID="txtProductName" runat="server" Width="184px"></asp:TextBox>

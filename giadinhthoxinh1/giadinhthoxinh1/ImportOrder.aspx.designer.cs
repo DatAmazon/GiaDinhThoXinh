@@ -33,40 +33,40 @@ namespace giadinhthoxinh1
         protected global::System.Web.UI.WebControls.TextBox txtImportOrderID;
 
         /// <summary>
-        /// txtFKAccountID control.
+        /// rptReceiver control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFKAccountID;
+        protected global::System.Web.UI.WebControls.Repeater rptReceiver;
 
         /// <summary>
-        /// rName control.
+        /// drlReceiver control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rName;
+        protected global::System.Web.UI.WebControls.DropDownList drlReceiver;
 
         /// <summary>
-        /// txtFKSupplierID control.
+        /// rptSupplier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFKSupplierID;
+        protected global::System.Web.UI.WebControls.Repeater rptSupplier;
 
         /// <summary>
-        /// reState control.
+        /// drlSupplier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reState;
+        protected global::System.Web.UI.WebControls.DropDownList drlSupplier;
 
         /// <summary>
         /// txtDateAdded control.

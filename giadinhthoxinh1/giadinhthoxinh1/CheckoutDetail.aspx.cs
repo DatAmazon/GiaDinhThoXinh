@@ -15,8 +15,43 @@ namespace giadinhthoxinh1
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                DataTable productTable = GetProduct();//table lấy sản phẩm
+                rptProduct.DataSource = productTable;
+                rptProduct.DataBind();
+                foreach (DataRow row in productTable.Rows)
+                {
+                    drlProductName.Items.Add(new ListItem(row["sProductName"].ToString(), row["PK_iProductID"].ToString()));
+                }
+
+                rptProduct.DataSource = productTable;
+                rptProduct.DataBind();
+                ShowList();
+                AddEnable();
+            }
             ShowList();
             AddEnable();
+        }
+
+        private DataTable GetProduct()//table lấy sản phẩm
+        {
+            using (SqlConnection cnn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "pro_getProduct";
+                    DataTable dt = new DataTable();
+                    cnn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        cnn.Close();
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
         }
         public void AddEnable()
         {
@@ -39,7 +74,7 @@ namespace giadinhthoxinh1
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@FK_iOrderID", txtFKOrderID.Text);
-                    cmd.Parameters.AddWithValue("@FK_iProductID", txtFKProductID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iProductID", drlProductName.SelectedValue);
                     cmd.Parameters.AddWithValue("@iQuantity", txtQuantity.Text);
                     cmd.Parameters.AddWithValue("@iTotalMoney", txtQuantity.Text);
 
@@ -102,7 +137,7 @@ namespace giadinhthoxinh1
 
             txtCheckoutDetailID.Text = checkoutDetailID.Text.ToString();
             txtFKOrderID.Text = orderID.Text.ToString();
-            txtFKProductID.Text = productID.Text.ToString();
+            drlProductName.SelectedValue = productID.Text.ToString();
             txtQuantity.Text = quantity.Text.ToString();
             txtTotalMoney.Text = totalMoney.Text.ToString();
             UpDateDelEnalble();
@@ -117,7 +152,7 @@ namespace giadinhthoxinh1
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@PK_iCheckoutDetailID", txtCheckoutDetailID.Text);
                     cmd.Parameters.AddWithValue("@FK_iOrderID", txtFKOrderID.Text);
-                    cmd.Parameters.AddWithValue("@FK_iProductID", txtFKProductID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iProductID", drlProductName.SelectedValue);
                     cmd.Parameters.AddWithValue("@iQuantity", txtQuantity.Text);
                     cmd.Parameters.AddWithValue("@iTotalMoney", txtTotalMoney.Text);
 
@@ -172,7 +207,7 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtCheckoutDetailID.Text = txtFKOrderID.Text = txtFKProductID.Text = txtQuantity.Text = txtTotalMoney.Text = "";
+            txtCheckoutDetailID.Text = txtFKOrderID.Text = txtQuantity.Text = txtTotalMoney.Text = "";
             AddEnable();
         }
     }

@@ -14,8 +14,72 @@ namespace giadinhthoxinh1
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-            ShowList();
-            AddEnable();
+            if (!IsPostBack)
+            {
+                DataTable productTable = GetCategory();//table lấy sản phẩm
+                rptCategory.DataSource = productTable;
+                rptCategory.DataBind();
+                foreach (DataRow row in productTable.Rows)
+                {
+                    drlCategory.Items.Add(new ListItem(row["sCategoryName"].ToString(), row["PK_iCategoryID"].ToString()));
+                }
+
+                rptCategory.DataSource = productTable;
+                rptCategory.DataBind();
+
+                DataTable productTable1 = GetPromote();//table lấy sản phẩm
+                rptPromote.DataSource = productTable1;
+                rptPromote.DataBind();
+                foreach (DataRow row in productTable1.Rows)
+                {
+                    drlPromote.Items.Add(new ListItem(row["sPromoteName"].ToString(), row["PK_iPromoteID"].ToString()));
+                }
+
+                rptPromote.DataSource = productTable1;
+                rptPromote.DataBind();
+                ShowList();
+                AddEnable();
+            }
+        }
+
+        private DataTable GetCategory()//table lấy sản phẩm
+        {
+            using (SqlConnection cnn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "pro_getCategory";
+                    DataTable dt = new DataTable();
+                    cnn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        cnn.Close();
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        private DataTable GetPromote()//table lấy sản phẩm
+        {
+            using (SqlConnection cnn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "pro_getPromote";
+                    DataTable dt = new DataTable();
+                    cnn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        cnn.Close();
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
         }
         public void AddEnable()
         {
@@ -39,8 +103,8 @@ namespace giadinhthoxinh1
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@FK_iCategoryID", txtCategoryID.Text);
-                    cmd.Parameters.AddWithValue("@FK_iPromoteID", txtPromoteID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iCategoryID", drlCategory.SelectedValue);
+                    cmd.Parameters.AddWithValue("@FK_iPromoteID", drlPromote.SelectedValue);
                     cmd.Parameters.AddWithValue("@sProductName", txtProductName.Text);
                     cmd.Parameters.AddWithValue("@iPrice", txtPrice.Text);
                     cmd.Parameters.AddWithValue("@sDescribe", txtDescrible.Text);
@@ -108,8 +172,8 @@ namespace giadinhthoxinh1
             Label size = (Label)dgv.SelectedRow.FindControl("size");
 
             txtProductID.Text = productID.Text.ToString();
-            txtCategoryID.Text = categoryID.Text.ToString();
-            txtPromoteID.Text = promoteID.Text.ToString();
+            drlCategory.SelectedValue = categoryID.Text.ToString();
+            drlPromote.SelectedValue = promoteID.Text.ToString();
             txtProductName.Text = productName.Text.ToString();
             txtPrice.Text = price.Text.ToString();
             txtDescrible.Text = describle.Text.ToString();
@@ -127,8 +191,8 @@ namespace giadinhthoxinh1
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@PK_iProductID", txtProductID.Text);
-                    cmd.Parameters.AddWithValue("@FK_iCategoryID", txtCategoryID.Text);
-                    cmd.Parameters.AddWithValue("@FK_iPromoteID", txtPromoteID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iCategoryID", drlCategory.SelectedValue);
+                    cmd.Parameters.AddWithValue("@FK_iPromoteID", drlPromote.SelectedValue);
                     cmd.Parameters.AddWithValue("@sProductName", txtProductName.Text);
                     cmd.Parameters.AddWithValue("@iPrice", txtPrice.Text);
                     cmd.Parameters.AddWithValue("@sDescribe", txtDescrible.Text);
@@ -189,7 +253,7 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtProductID.Text = txtCategoryID.Text = txtPromoteID.Text = txtProductName.Text = txtPrice.Text = txtDescrible.Text = txtColor.Text = txtSize.Text = txtProductID.Text = "";
+            txtProductID.Text = txtProductName.Text = txtPrice.Text = txtDescrible.Text = txtColor.Text = txtSize.Text = txtProductID.Text = "";
             AddEnable();
         }
     }

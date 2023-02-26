@@ -15,7 +15,73 @@ namespace giadinhthoxinh1
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                DataTable productTable = GetReceiver();//table lấy sản phẩm
+                rptReceiver.DataSource = productTable;
+                rptReceiver.DataBind();
+                foreach (DataRow row in productTable.Rows)
+                {
+                    drlReceiver.Items.Add(new ListItem(row["sUserName"].ToString(), row["PK_iAccountID"].ToString()));
+                }
+
+                rptReceiver.DataSource = productTable;
+                rptReceiver.DataBind();
+
+                DataTable productTable1 = GetSupplier();//table lấy sản phẩm
+                rptSupplier.DataSource = productTable1;
+                rptSupplier.DataBind();
+                foreach (DataRow row in productTable1.Rows)
+                {
+                    drlSupplier.Items.Add(new ListItem(row["sSupplierName"].ToString(), row["PK_iSupplierID"].ToString()));
+                }
+
+                rptSupplier.DataSource = productTable1;
+                rptSupplier.DataBind();
+
+
+            }
+            ShowList();
             AddEnable();
+        }
+
+        private DataTable GetReceiver()//table lấy sản phẩm
+        {
+            using (SqlConnection cnn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "pro_getReceiver";
+                    DataTable dt = new DataTable();
+                    cnn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        cnn.Close();
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+        private DataTable GetSupplier()//table lấy sản phẩm
+        {
+            using (SqlConnection cnn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "pro_getSupplier";
+                    DataTable dt = new DataTable();
+                    cnn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        cnn.Close();
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
         }
         public void AddEnable()
         {
@@ -38,8 +104,8 @@ namespace giadinhthoxinh1
                 using (SqlCommand cmd = new SqlCommand("proAddImportOrder", cnn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@FK_iAccountID", txtFKAccountID.Text);
-                    cmd.Parameters.AddWithValue("@FK_iSupplierID", txtFKSupplierID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iAccountID", drlReceiver.SelectedValue);
+                    cmd.Parameters.AddWithValue("@FK_iSupplierID", drlSupplier.SelectedValue);
                     cmd.Parameters.AddWithValue("@dtDateAdded", txtDateAdded.Text);
                     cmd.Parameters.AddWithValue("@sDeliver", txtDeliver.Text);
                     cnn.Open();
@@ -100,8 +166,8 @@ namespace giadinhthoxinh1
             Label deliver = (Label)dgv.SelectedRow.FindControl("deliver");
 
             txtImportOrderID.Text = importOrderID.Text.ToString();
-            txtFKAccountID.Text = FKAccountID.Text.ToString();
-            txtFKSupplierID.Text = FKSupplierID.Text.ToString();
+            drlReceiver.SelectedValue = FKAccountID.Text.ToString();
+            drlSupplier.SelectedValue= FKSupplierID.Text.ToString();
             txtDateAdded.Text = dtDateAdded.Text.ToString();
             txtDeliver.Text = deliver.Text.ToString();
             UpDateDelEnalble();
@@ -115,8 +181,8 @@ namespace giadinhthoxinh1
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@PK_iImportOrderID", txtImportOrderID.Text);
-                    cmd.Parameters.AddWithValue("@FK_iAccountID", txtFKAccountID.Text);
-                    cmd.Parameters.AddWithValue("@FK_iSupplierID", txtFKSupplierID.Text);
+                    cmd.Parameters.AddWithValue("@FK_iAccountID", drlReceiver.Text);
+                    cmd.Parameters.AddWithValue("@FK_iSupplierID", drlSupplier.SelectedValue);
                     cmd.Parameters.AddWithValue("@dtDateAdded", txtDateAdded.Text);
                     cmd.Parameters.AddWithValue("@sDeliver", txtDeliver.Text);
 
@@ -173,7 +239,7 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtImportOrderID.Text = txtFKAccountID.Text = txtFKSupplierID.Text = txtDateAdded.Text = txtDeliver.Text = "";
+            txtImportOrderID.Text =  txtDateAdded.Text = txtDeliver.Text = "";
             AddEnable();
         }
 

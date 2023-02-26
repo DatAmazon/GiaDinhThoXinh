@@ -15,6 +15,24 @@ namespace giadinhthoxinh1
     {
 
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+
+        /// <summary>
+        /// UpdatePanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+
+        /// <summary>
         /// dgv control.
         /// </summary>
         /// <remarks>
@@ -24,31 +42,13 @@ namespace giadinhthoxinh1
         protected global::System.Web.UI.WebControls.GridView dgv;
 
         /// <summary>
-        /// txtUserID control.
+        /// txtAccountID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUserID;
-
-        /// <summary>
-        /// txtPermissionUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPermissionUser;
-
-        /// <summary>
-        /// rName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rName;
+        protected global::System.Web.UI.WebControls.TextBox txtAccountID;
 
         /// <summary>
         /// rptPermission control.

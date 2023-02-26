@@ -149,6 +149,13 @@ begin
 	where PK_iCategoryID = @sCategoryID
 end
 
+go
+-- Get category name display on Product
+create proc pro_getCategory
+as
+begin
+	select * from tblCategory
+end
 -----2. Image
 --insert
 go
@@ -169,7 +176,7 @@ begin
 end
 
 go
-create proc pro_Image--select image for ID
+create proc procSelectImageByID--select image for ID
 @PK_iImageID int
 as
 begin
@@ -348,6 +355,24 @@ begin
 	select *from tblPermission
 end
 
+go
+-- Get receiver ImportOrder display on ImportOrder
+alter proc pro_getReceiver
+as
+begin
+	select PK_iAccountID,sUserName from tblUser
+	where FK_iPermissionID = 2
+end
+	select * from tblpermission
+
+go
+create proc procSelectUserByID--select user for ID
+@PK_iAccountID int
+as
+begin
+	select * from tblUser
+	where PK_iAccountID = @PK_iAccountID
+end
 --6. CheckoutDetail
 --insert
 go
@@ -516,6 +541,15 @@ begin
 	where PK_iImportOrderID = @PK_iImportOrderID
 end
 
+go
+-- Get supplier name display on Importorder
+create proc pro_getSupplier
+as
+begin
+	select * from tblSupplier
+end
+
+
 --10. Promote
 --insert
 go
@@ -560,6 +594,13 @@ end
 exec proDeletePromote 1
 select * from tblPromote
 
+go
+-- Get promote name display on Product
+create proc pro_getPromote
+as
+begin
+	select * from tblPromote
+end
 --11. Product
 --insert
 go
@@ -672,7 +713,7 @@ end
 
 exec proDeleteOrder 15
 
-select * from tblOrder
+select * from tblCategory
 exec proDeleteOrder 5
 
 	delete from tblOrder

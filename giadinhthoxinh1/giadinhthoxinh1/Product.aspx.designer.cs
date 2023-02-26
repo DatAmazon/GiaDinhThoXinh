@@ -33,40 +33,40 @@ namespace giadinhthoxinh1
         protected global::System.Web.UI.WebControls.TextBox txtProductID;
 
         /// <summary>
-        /// txtCategoryID control.
+        /// rptCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCategoryID;
+        protected global::System.Web.UI.WebControls.Repeater rptCategory;
 
         /// <summary>
-        /// rName control.
+        /// drlCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rName;
+        protected global::System.Web.UI.WebControls.DropDownList drlCategory;
 
         /// <summary>
-        /// txtPromoteID control.
+        /// rptPromote control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPromoteID;
+        protected global::System.Web.UI.WebControls.Repeater rptPromote;
 
         /// <summary>
-        /// reState control.
+        /// drlPromote control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reState;
+        protected global::System.Web.UI.WebControls.DropDownList drlPromote;
 
         /// <summary>
         /// txtProductName control.

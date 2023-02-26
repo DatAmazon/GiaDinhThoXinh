@@ -7,7 +7,7 @@
     <div class="wrap">
         <div class="show-list">
             <h1 class="title">Danh sách</h1>
-            <asp:GridView ID="dgv" runat="server" AutoGenerateColumns="False"  OnRowDataBound="dgvCategory_RowDataBound" OnSelectedIndexChanged="dgvCategory_SelectedIndexChanged" Width="460px">
+            <asp:GridView ID="dgv" runat="server" AutoGenerateColumns="False" OnRowDataBound="dgvCategory_RowDataBound" OnSelectedIndexChanged="dgvCategory_SelectedIndexChanged" Width="460px">
                 <Columns>
                     <asp:TemplateField HeaderText="Mã đơn nhập">
                         <ItemTemplate>
@@ -15,7 +15,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="Mã người nhận">
+                    <asp:TemplateField HeaderText="Mã NV nhận hàng:">
                         <ItemTemplate>
                             <asp:Label ID="FKAccountID" runat="server" Text='<%# Eval("FK_iAccountID") %>'></asp:Label>
                         </ItemTemplate>
@@ -39,7 +39,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
-<%--                    <asp:TemplateField HeaderText="Người nhận">
+                    <%--                    <asp:TemplateField HeaderText="Người nhận">
                         <ItemTemplate>
                             <asp:Label ID="receiver" runat="server" Text='<%# Eval("sReceiver") %>'></asp:Label>
                         </ItemTemplate>
@@ -55,17 +55,48 @@
                     <asp:TextBox ID="txtImportOrderID" runat="server" Enabled="false" Width="184px"></asp:TextBox>
                 </p>
 
-                <p>
-                    <span class="label">Mã người nhận:</span>
+<%--                <p>
+                    <span class="label">NV nhận:</span>
                     <asp:TextBox ID="txtFKAccountID" runat="server" Width="184px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rName" runat="server" ControlToValidate="txtFKAccountID" ErrorMessage="Người nhận không được bỏ trống"
                         ForeColor="Red" Display="None" ValidationGroup="checkGroup"></asp:RequiredFieldValidator>
-                </p>
+                </p>--%>
+
                 <p>
+                    <asp:Repeater runat="server" ID="rptReceiver">
+                        <ItemTemplate>
+                            <p>
+                                <a class="receiver-name" href="<%#Eval("sUserName")%>"></a>
+                            </p>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </p>
+
+                <p>
+                    <span class="label">NV nhận hàng:</span>
+                    <asp:DropDownList ID="drlReceiver" runat="server"></asp:DropDownList>
+                </p>
+
+<%--                <p>
                     <span class="label">Mã nhà cung cấp:</span>
                     <asp:TextBox ID="txtFKSupplierID" runat="server" Width="184px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="reState" runat="server" ControlToValidate="txtFKSupplierID" ErrorMessage="Nhà cung cấp không được bỏ trống"
                         ForeColor="Red" Display="None" ValidationGroup="checkGroup"></asp:RequiredFieldValidator>
+                </p>--%>
+
+                <p>
+                    <asp:Repeater runat="server" ID="rptSupplier">
+                        <ItemTemplate>
+                            <p>
+                                <a class="supplier-name" href="<%#Eval("sSupplierName")%>"></a>
+                            </p>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </p>
+
+                <p>
+                    <span class="label">Chọn NCC:</span>
+                    <asp:DropDownList ID="drlSupplier" runat="server"></asp:DropDownList>
                 </p>
 
                 <p>

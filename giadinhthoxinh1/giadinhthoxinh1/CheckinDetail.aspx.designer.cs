@@ -51,22 +51,22 @@ namespace giadinhthoxinh1
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rName;
 
         /// <summary>
-        /// txtFKProductID control.
+        /// rptProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFKProductID;
+        protected global::System.Web.UI.WebControls.Repeater rptProduct;
 
         /// <summary>
-        /// reState control.
+        /// drlProductName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reState;
+        protected global::System.Web.UI.WebControls.DropDownList drlProductName;
 
         /// <summary>
         /// txtQuatity control.
