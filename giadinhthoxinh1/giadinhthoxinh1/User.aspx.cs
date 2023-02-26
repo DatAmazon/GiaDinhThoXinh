@@ -27,8 +27,7 @@ namespace giadinhthoxinh1
 
                 rptPermission.DataSource = productTable;
                 rptPermission.DataBind();
-                ShowList();
-                AddEnable();
+     
             }
             ShowList();
             AddEnable();
@@ -132,25 +131,6 @@ namespace giadinhthoxinh1
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Label userID = (Label)dgv.SelectedRow.FindControl("userID");
-            //Label userPermission = (Label)dgv.SelectedRow.FindControl("userPermission");
-            //Label userEmail = (Label)dgv.SelectedRow.FindControl("userEmail");
-            //Label userUsername = (Label)dgv.SelectedRow.FindControl("userUsername");
-            //Label userPass = (Label)dgv.SelectedRow.FindControl("userPass");
-            //Label userPhone = (Label)dgv.SelectedRow.FindControl("userPhone");
-            //Label userAddress = (Label)dgv.SelectedRow.FindControl("userAddress");
-            //Label userState = (Label)dgv.SelectedRow.FindControl("userState");
-
-            //txtUserID.Text = userID.Text.ToString();
-            ////txtPermissionUser.Text = userPermission.Text.ToString();
-            //txtUserEmail.Text = userEmail.Text.ToString();
-            //txtUsername.Text = userUsername.Text.ToString();
-            //txtUserPass.Text = userPass.Text.ToString();
-            //txtUserPhone.Text = userPhone.Text.ToString();
-            //txtUserAddress.Text = userAddress.Text.ToString();
-            //txtUserState.Text = userState.Text.ToString();
-            //UpDateDelEnalble();
-
             if (dgv.SelectedDataKey != null)
             {
                 using (SqlConnection cnn = new SqlConnection(connectionString))
@@ -165,17 +145,17 @@ namespace giadinhthoxinh1
                         {
 
                             dataReader.Read();
-                            //txtAccountID.Text = dataReader["PK_iAccountID"].ToString();
-                            //string idPermission = dataReader["FK_iPermissionID"].ToString();
-                            //foreach (ListItem item in drlPermission.Items)
-                            //{
-                            //    if (item.Value.Equals(idPermission))
-                            //    {
-                            //        drlPermission.ClearSelection();
-                            //        item.Selected = true;
-                            //        break;
-                            //    }
-                            //}
+                            txtAccountID.Text = dataReader["PK_iAccountID"].ToString();
+                            string idPermission = dataReader["FK_iPermissionID"].ToString();
+                            foreach (ListItem item in drlPermission.Items)
+                            {
+                                if (item.Value.Equals(idPermission))
+                                {
+                                    drlPermission.ClearSelection();
+                                    item.Selected = true;
+                                    break;
+                                }
+                            }
                             txtUserEmail.Text = dataReader["sEmail"].ToString();
                             txtUsername.Text = dataReader["sUserName"].ToString();
                             txtUserPass.Text = dataReader["sPass"].ToString();
@@ -188,8 +168,29 @@ namespace giadinhthoxinh1
                 }
 
             }
-            UpDateDelEnalble();
+        UpDateDelEnalble();
         }
+
+
+        //Label userID = (Label)dgv.SelectedRow.FindControl("userID");
+        //Label userPermission = (Label)dgv.SelectedRow.FindControl("userPermission");
+        //Label userEmail = (Label)dgv.SelectedRow.FindControl("userEmail");
+        //Label userUsername = (Label)dgv.SelectedRow.FindControl("userUsername");
+        //Label userPass = (Label)dgv.SelectedRow.FindControl("userPass");
+        //Label userPhone = (Label)dgv.SelectedRow.FindControl("userPhone");
+        //Label userAddress = (Label)dgv.SelectedRow.FindControl("userAddress");
+        //Label userState = (Label)dgv.SelectedRow.FindControl("userState");
+
+        //txtUserID.Text = userID.Text.ToString();
+        ////txtPermissionUser.Text = userPermission.Text.ToString();
+        //txtUserEmail.Text = userEmail.Text.ToString();
+        //txtUsername.Text = userUsername.Text.ToString();
+        //txtUserPass.Text = userPass.Text.ToString();
+        //txtUserPhone.Text = userPhone.Text.ToString();
+        //txtUserAddress.Text = userAddress.Text.ToString();
+        //txtUserState.Text = userState.Text.ToString();
+        //UpDateDelEnalble();
+
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -262,7 +263,6 @@ namespace giadinhthoxinh1
         public void Reset()
         {
             txtAccountID.Text = txtUserEmail.Text = txtUsername.Text = txtUserPass.Text = txtUserPhone.Text = txtUserAddress.Text = txtUserState.Text = "";
-
             AddEnable();
         }
     }

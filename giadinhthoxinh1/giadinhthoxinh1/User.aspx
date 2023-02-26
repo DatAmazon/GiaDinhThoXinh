@@ -15,7 +15,7 @@
             <div class="wrap">
                 <div class="show-list">
                     <h1 class="title">Danh sách</h1>
-                    <asp:GridView ID="dgv" runat="server" AutoGenerateColumns="False" OnRowDataBound="dgvCategory_RowDataBound" OnSelectedIndexChanged="dgvCategory_SelectedIndexChanged" Width="560px">
+                    <asp:GridView ID="dgv" runat="server" AutoGenerateColumns="False" OnRowDataBound="dgvCategory_RowDataBound" DataKeyNames="PK_iAccountID" OnSelectedIndexChanged="dgvCategory_SelectedIndexChanged" Width="560px">
                         <Columns>
                             <asp:TemplateField HeaderText="ID">
                                 <ItemTemplate>

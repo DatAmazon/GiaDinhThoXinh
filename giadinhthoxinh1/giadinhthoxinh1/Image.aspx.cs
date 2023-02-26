@@ -168,7 +168,7 @@ namespace giadinhthoxinh1
             }
             else
             {
-                txtState.Text = "TESST";
+                
             }
             UpDateDelEnalble();
         }

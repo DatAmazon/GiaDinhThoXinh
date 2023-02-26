@@ -7,7 +7,7 @@
     <div class="wrap">
         <div class="show-list">
             <h1 class="title">Danh sách</h1>
-            <asp:GridView ID="dgv" runat="server" AutoGenerateColumns="False" OnRowDataBound="dgvCategory_RowDataBound" OnSelectedIndexChanged="dgvCategory_SelectedIndexChanged" Width="460px">
+            <asp:GridView ID="dgv" runat="server" AutoGenerateColumns="False" OnRowDataBound="dgvCategory_RowDataBound" DataKeyNames="PK_iImportOrderID"  OnSelectedIndexChanged="dgvCategory_SelectedIndexChanged" Width="460px">
                 <Columns>
                     <asp:TemplateField HeaderText="Mã đơn nhập">
                         <ItemTemplate>

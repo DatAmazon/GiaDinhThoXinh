@@ -131,21 +131,60 @@ namespace giadinhthoxinh1
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label checkinDetailID = (Label)dgv.SelectedRow.FindControl("checkinDetailID");
-            Label importOrderID = (Label)dgv.SelectedRow.FindControl("importOrderID");
-            Label productID = (Label)dgv.SelectedRow.FindControl("productID");
-            Label quatity = (Label)dgv.SelectedRow.FindControl("quatity");
-            Label price = (Label)dgv.SelectedRow.FindControl("price");
-            Label totalMoney = (Label)dgv.SelectedRow.FindControl("totalMoney");
+            if (dgv.SelectedDataKey != null)
+            {
+                using (SqlConnection cnn = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("procSelectCheckinDeatailrByID", cnn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@PK_iCheckinDetailID", dgv.SelectedValue.ToString());
+                        cnn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        if (dataReader.HasRows)
+                        {
+                            dataReader.Read();
+                            txtCheckinDetailID.Text = dataReader["PK_iCheckinDetailID"].ToString();
+                            txtFKImportOrderID.Text = dataReader["FK_iImportOrderID"].ToString();
+                            string idSanPham = dataReader["FK_iProductID"].ToString();
+                            foreach (ListItem item in drlProductName.Items)
+                            {
+                                if (item.Value.Equals(idSanPham))
+                                {
+                                    drlProductName.ClearSelection();
+                                    item.Selected = true;
+                                    break;
+                                }
+                            }
+                            txtQuatity.Text = dataReader["iQuatity"].ToString();
+                            txtPrice.Text = dataReader["iPrice"].ToString();
+                            txtTotalMoney.Text = dataReader["iTotalMoney"].ToString();
+                        }
+                        cnn.Close();
+                    }
+                }
 
+            }
+            else
+            {
 
-            txtCheckinDetailID.Text = checkinDetailID.Text.ToString();
-            txtFKImportOrderID.Text = importOrderID.Text.ToString();
-            drlProductName.SelectedValue = productID.Text.ToString();
-            txtQuatity.Text = quatity.Text.ToString();
-            txtPrice.Text = price.Text.ToString();
-            txtTotalMoney.Text = totalMoney.Text.ToString();
+            }
             UpDateDelEnalble();
+            //Label checkinDetailID = (Label)dgv.SelectedRow.FindControl("checkinDetailID");
+            //Label importOrderID = (Label)dgv.SelectedRow.FindControl("importOrderID");
+            //Label productID = (Label)dgv.SelectedRow.FindControl("productID");
+            //Label quatity = (Label)dgv.SelectedRow.FindControl("quatity");
+            //Label price = (Label)dgv.SelectedRow.FindControl("price");
+            //Label totalMoney = (Label)dgv.SelectedRow.FindControl("totalMoney");
+
+
+            //txtCheckinDetailID.Text = checkinDetailID.Text.ToString();
+            //txtFKImportOrderID.Text = importOrderID.Text.ToString();
+            //drlProductName.SelectedValue = productID.Text.ToString();
+            //txtQuatity.Text = quatity.Text.ToString();
+            //txtPrice.Text = price.Text.ToString();
+            //txtTotalMoney.Text = totalMoney.Text.ToString();
+
 
         }
 

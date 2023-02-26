@@ -458,6 +458,14 @@ begin
 	where PK_iCheckinDetailID = @PK_iCheckinDetailID
 end
 
+go
+create proc procSelectCheckinDeatailrByID--select checkin detail by ID
+@PK_iCheckinDetailID int
+as
+begin
+	select * from tblCheckinDetail
+	where PK_iCheckinDetailID = @PK_iCheckinDetailID
+end
 
 --8. Review
 --insert
@@ -549,6 +557,14 @@ begin
 	select * from tblSupplier
 end
 
+go
+create proc procSelectImportOrderByID--select user for ID
+@PK_iImportOrderID int
+as
+begin
+	select * from tblImportOrder
+	where PK_iImportOrderID = @PK_iImportOrderID
+end
 
 --10. Promote
 --insert

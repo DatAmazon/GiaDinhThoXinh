@@ -159,18 +159,63 @@ namespace giadinhthoxinh1
 
         protected void dgvCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label importOrderID = (Label)dgv.SelectedRow.FindControl("importOrderID");
-            Label FKAccountID = (Label)dgv.SelectedRow.FindControl("FKAccountID");
-            Label FKSupplierID = (Label)dgv.SelectedRow.FindControl("FKSupplierID");
-            Label dtDateAdded = (Label)dgv.SelectedRow.FindControl("dtDateAdded");
-            Label deliver = (Label)dgv.SelectedRow.FindControl("deliver");
+            if (dgv.SelectedDataKey != null)
+            {
+                using (SqlConnection cnn = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("procSelectImportOrderByID", cnn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@PK_iImportOrderID", dgv.SelectedValue.ToString());
+                        cnn.Open();
+                        SqlDataReader dataReader = cmd.ExecuteReader();
+                        if (dataReader.HasRows)
+                        {
 
-            txtImportOrderID.Text = importOrderID.Text.ToString();
-            drlReceiver.SelectedValue = FKAccountID.Text.ToString();
-            drlSupplier.SelectedValue= FKSupplierID.Text.ToString();
-            txtDateAdded.Text = dtDateAdded.Text.ToString();
-            txtDeliver.Text = deliver.Text.ToString();
+                            dataReader.Read();
+                            txtImportOrderID.Text = dataReader["PK_iImportOrderID"].ToString();
+                            string idReceiver = dataReader["FK_iAccountID"].ToString();
+                            foreach (ListItem item in drlReceiver.Items)
+                            {
+                                if (item.Value.Equals(idReceiver))
+                                {
+                                    drlReceiver.ClearSelection();
+                                    item.Selected = true;
+                                    break;
+                                }
+                            }
+                            string idSupplier = dataReader["FK_iSupplierID"].ToString();
+                            foreach (ListItem item in drlSupplier.Items)
+                            {
+                                if (item.Value.Equals(idSupplier))
+                                {
+                                    drlSupplier.ClearSelection();
+                                    item.Selected = true;
+                                    break;
+                                }
+                            }
+                            txtDateAdded.Text = dataReader["dtDateAdded"].ToString();
+                            txtDeliver.Text = dataReader["sDeliver"].ToString();
+
+                        }
+                        cnn.Close();
+                    }
+                }
+
+            }
             UpDateDelEnalble();
+            //Label importOrderID = (Label)dgv.SelectedRow.FindControl("importOrderID");
+            //Label FKAccountID = (Label)dgv.SelectedRow.FindControl("FKAccountID");
+            //Label FKSupplierID = (Label)dgv.SelectedRow.FindControl("FKSupplierID");
+            //Label dtDateAdded = (Label)dgv.SelectedRow.FindControl("dtDateAdded");
+            //Label deliver = (Label)dgv.SelectedRow.FindControl("deliver");
+
+            //txtImportOrderID.Text = importOrderID.Text.ToString();
+            //drlReceiver.SelectedValue = FKAccountID.Text.ToString();
+            //drlSupplier.SelectedValue= FKSupplierID.Text.ToString();
+            //txtDateAdded.Text = dtDateAdded.Text.ToString();
+            //txtDeliver.Text = deliver.Text.ToString();
+            //UpDateDelEnalble();
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -239,7 +284,7 @@ namespace giadinhthoxinh1
         }
         public void Reset()
         {
-            txtImportOrderID.Text =  txtDateAdded.Text = txtDeliver.Text = "";
+            txtImportOrderID.Text = txtDateAdded.Text = txtDeliver.Text = "";
             AddEnable();
         }
 
