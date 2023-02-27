@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace giadinhthoxinh1
 {
-    public partial class Index : System.Web.UI.Page
+    public partial class IndexTest : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)

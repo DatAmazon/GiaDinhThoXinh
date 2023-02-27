@@ -108,7 +108,7 @@
     <Content Include="About.aspx" />
     <Content Include="Assets\css\component.css" />
     <Content Include="Assets\css\global.css" />
-    <Content Include="Assets\css\Index.css" />
+    <Content Include="Assets\css\index.css" />
     <Content Include="Assets\css\master-page.css" />
     <Content Include="Assets\img\cnpm.jpeg" />
     <Content Include="Assets\img\dotNet.png" />
@@ -140,6 +140,7 @@
     <Content Include="Image1.aspx" />
     <Content Include="ImportOrder.aspx" />
     <Content Include="Index.aspx" />
+    <Content Include="IndexTest.aspx" />
     <Content Include="MasterPage.Master" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Order.aspx" />
@@ -265,6 +266,13 @@
     </Compile>
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="IndexTest.aspx.cs">
+      <DependentUpon>IndexTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IndexTest.aspx.designer.cs">
+      <DependentUpon>IndexTest.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>

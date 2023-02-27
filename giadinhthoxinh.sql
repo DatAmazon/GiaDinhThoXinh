@@ -211,7 +211,7 @@ begin
 end
 -- get image to display
 go 
-alter proc proGetImageToDisplay
+create proc proGetImageByIDToDisplay
 @sId int
 as
 begin
@@ -219,8 +219,13 @@ begin
 	where PK_iImageID = @sId
 end
 
-exec proGetImageToDisplay 2
+go
+alter proc proGetAllImageToDisplay
+as
+begin
 	select * from tblImage
+end
+
 --3. Permission
 --insert
 go
